@@ -1,0 +1,15 @@
+{
+  "name": "takemyhand",
+  "owner": {
+    "name": "The takemyhand Authors"
+  },
+  "plugins": [
+    {
+      "name": "takemyhand",
+      "source": "./",
+      "description": "Mentor mode in any language: the agent does your task while teaching, then gradually hands the work over (I do → we do → you do).",
+      "version": "1.0.0",
+      "license": "Apache-2.0"
+    }
+  ]
+}

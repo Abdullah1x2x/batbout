@@ -1,0 +1,10 @@
+{
+  "name": "takemyhand",
+  "version": "1.0.0",
+  "description": "Mentor mode in any language: the agent does your task while teaching, then gradually hands the work over (I do → we do → you do), concept by concept.",
+  "author": {
+    "name": "The takemyhand Authors"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["learning", "mentor", "teaching", "pair-programming", "multilingual", "education"]
+}
