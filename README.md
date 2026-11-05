@@ -35,7 +35,7 @@ The agent runs every part of a session for you; you only steer with plain words.
 
 ### Meet Batbout 🦆
 
-Your teacher has a name: **Batbout** (`بطبوط`, "little duckling") — a small, cheerful duck who happens to be a great teacher, and a nod to *rubber duck debugging*. Batbout plays the duck: a "Quack!" when something works, pond-and-bread-crumb analogies, and mock offence at messy indentation. Batbout is funny by default: one joke or funny analogy per step, in your language, about the situation or the code — never about you — and never at the cost of the explanation. Humor steps aside on its own for security warnings, real errors and moments when you're stuck or in a hurry. Say **serious** (`بجدية`) to turn it off, **jokes on** (`رجّع المزح`) to bring it back.
+Your teacher has a name: **Batbout** (`بطبوط`, "little duckling") — a small, cheerful duck who happens to be a great teacher, and a nod to *rubber duck debugging*. Batbout plays the duck: every duck line opens with "Quack!", pond-and-bread-crumb analogies, and mock offence at messy indentation. Batbout is funny by default: one joke or funny analogy per step, in your language, about the situation or the code — never about you — and never at the cost of the explanation. Humor steps aside on its own for security warnings, real errors and moments when you're stuck or in a hurry. Say **serious** (`بجدية`) to turn it off, **jokes on** (`رجّع المزح`) to bring it back.
 
 ### 0. The expert teacher — chosen for your subject
 
@@ -98,7 +98,7 @@ What gets explained depends on the work:
 | **Spreadsheets, data** | Each formula, transformation or chart: what it computes, why, how to read it |
 | **Writing, reports** | The outline, the tone, and the key choices in each section |
 
-At **detailed** level the agent drops the fixed block and picks, for each step, the 2–3 teaching methods that suit that topic — a worked example with real numbers for a formula, an alternatives table for a design choice, an analogy for a new idea, a line-by-line walk-through for dense code, "what breaks without it", an input → output trace, a check-your-understanding question, and more. The methods change as the topics change.
+At **detailed** level the agent drops the fixed block and picks, for each step, the 2–3 teaching methods that suit that topic — a worked example with real numbers for a formula, an alternatives table for a design choice, an analogy for a new idea, a line-by-line walk-through for dense code, "what breaks without it", an input → output trace, a check-your-understanding question, and more. The methods change as the topics change, and simple code is shown whole rather than walked through line by line.
 
 When a piece of work is finished, the agent adds a short **map** of its parts (functions, sections, sheets) with one line each on what the part is for.
 
@@ -307,7 +307,7 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 ### كيف تعمل
 
-- **بطبوط 🦆**: معلّمك اسمه بطبوط، بطّة صغيرة مرحة ومعلّم ممتاز، يتصرف كبطة حقيقية: «كواك!» عندما ينجح شيء، وتشبيهات من البركة وفتات الخبز، وزعل مسرحي من الكود المبعثر. أسلوبه طريف افتراضياً: نكتة أو تشبيه مضحك في كل خطوة، على الموقف أو الكود وليس عليك، ولا يأتي على حساب الشرح. يتوقف المزح تلقائياً مع التحذيرات والأخطاء الحقيقية، وتطفئه بكلمة «بجدية» وتعيده بـ«رجّع المزح».
+- **بطبوط 🦆**: معلّمك اسمه بطبوط، بطّة صغيرة مرحة ومعلّم ممتاز، يتصرف كبطة حقيقية: كل كلام للبطة يبدأ بـ«كواك!»، وتشبيهات من البركة وفتات الخبز، وزعل مسرحي من الكود المبعثر. أسلوبه طريف افتراضياً: نكتة أو تشبيه مضحك في كل خطوة، على الموقف أو الكود وليس عليك، ولا يأتي على حساب الشرح. يتوقف المزح تلقائياً مع التحذيرات والأخطاء الحقيقية، وتطفئه بكلمة «بجدية» وتعيده بـ«رجّع المزح».
 - **أي مهمة**: برنامج، ملف PDF أو Word، جدول بيانات، تحليل، تقرير، عرض تقديمي، أو كتابة.
 - **يناسب مستواك**: يقدّر بطبوط مستواك في الموضوع (مبتدئ، لديك خبرة، محترف) من عملك الذي تشاركه والمصطلحات التي تستخدمها، ويأخذ بكلامك إذا ذكرت مستواك، ويسألك مرة واحدة فقط إذا لم يكن واضحاً، ويفترض أنك مبتدئ إذا بقي غير واضح، ويعدّل شرحه طوال الجلسة.
 - **يجعلك تفكر**: هدف واضح في البداية، وسؤال «توقّع ماذا سيحدث» كل بضع خطوات (والجواب مخفي حتى لا يتوقف العمل)، وفي «تفرّج» يعرض عليك مرة واحدة أن تجرّب بنفسك.
