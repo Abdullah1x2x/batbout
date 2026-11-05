@@ -33,6 +33,10 @@ Each sibling skill has a short fallback inside `takemyhand`, so the core skill a
 
 The agent runs every part of a session for you; you only steer with plain words.
 
+### Meet Batbout 🦆
+
+Your teacher has a name: **Batbout** (`بطبوط`, "little duckling") — a small, cheerful duck who happens to be a great teacher, and a nod to *rubber duck debugging*. Batbout is funny by default: one joke or funny analogy per step, in your language, about the situation or the code — never about you — and never at the cost of the explanation. Humor steps aside on its own for security warnings, real errors and moments when you're stuck or in a hurry. Say **serious** (`بجدية`) to turn it off, **jokes on** (`رجّع المزح`) to bring it back.
+
 ### 0. The expert teacher — chosen for your subject
 
 Before the first step the agent names the subject of your task — machine learning, web development, document design, data analysis… — and teaches as a senior expert in *that* field: its vocabulary, its established practices, the mistakes its beginners make, and its standards for good work. If the subject changes mid-session, the role changes with it.
@@ -65,7 +69,7 @@ Independent of the speed: any speed works with any level.
 | **normal** · عادي *(default)* | Every meaningful step: what, why, how |
 | **detailed** · بالتفصيل | Every part: each function or section, each decision, the rejected alternatives and the concepts behind them — each step taught with the methods that suit it |
 
-At the start the agent tells you its expert role, the current speed and the level in one line — e.g. *Teacher: machine-learning expert · Speed: watch · Level: normal* — and the words that change them.
+At the start Batbout introduces itself with its expert role, the current speed and the level in one line — e.g. *🦆 Batbout, your machine-learning expert · Speed: watch · Level: normal* — and the words that change them.
 
 ### 3. Step by step — what, why, how
 
@@ -187,6 +191,7 @@ Start in a specific speed or level by saying it up front: `/takemyhand drive: ad
 | **is this right?** | صح كذا؟ · ¿está bien? | Same — review of your attempt |
 | **I don't know** / **hint** | ما أعرف · تلميح · no sé · une piste | The next rung of the hint ladder |
 | **show me** | ورني · muéstrame · montre-moi | The solution, explained step by step (the concept steps back one stage) |
+| **serious** / **jokes on** | بجدية · رجّع المزح · en serio · con humor | Turn Batbout's humor off or on |
 | **speak English** / **تكلم عربي** | — | Switch the session language |
 
 ### End
@@ -295,6 +300,7 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 ### كيف تعمل
 
+- **بطبوط 🦆**: معلّمك اسمه بطبوط، بطّة صغيرة مرحة ومعلّم ممتاز. أسلوبه طريف افتراضياً: نكتة أو تشبيه مضحك في كل خطوة، على الموقف أو الكود وليس عليك، ولا يأتي على حساب الشرح. يتوقف المزح تلقائياً مع التحذيرات والأخطاء الحقيقية، وتطفئه بكلمة «بجدية» وتعيده بـ«رجّع المزح».
 - **أي مهمة**: برنامج، ملف PDF أو Word، جدول بيانات، تحليل، تقرير، عرض تقديمي، أو كتابة.
 - **معلّم خبير في موضوعك**: يحدد الوكيل موضوع المهمة (تعلّم الآلة، تطوير الويب، تصميم المستندات…) ويعلّمك كخبير في هذا المجال: مصطلحاته، وممارساته المعتمدة، وأخطاء المبتدئين فيه. في «تفرّج» يعرض كيف يعمل الخبير، وفي «خذ بيدي» يدرّبك على قرارات المجال الأساسية، وفي «سوقني» يراجع عملك بمعايير المجال. ويتغيّر الدور إذا تغيّر الموضوع.
 - **السرعات**: تبدأ الجلسة على «تفرّج»: ينفّذ الوكيل كل شيء ويشرح. في «خذ بيدي» ينفّذ جزءاً وتنفّذ أنت الأجزاء المهمة، وفي «سوقني» تنفّذ أنت أغلب العمل والوكيل يخطط ويراجع ويلمّح.
@@ -312,6 +318,7 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 |---|---|
 | `/takemyhand <المهمة>` | بدء جلسة في Claude Code (أو `/takemyhand:takemyhand` إذا ثُبّتت كإضافة). في الوكلاء الآخرين: «استخدم takemyhand لـ…». بدون مهمة يسألك الوكيل ماذا تريد أن تعمل |
 | تفرّج · خذ بيدي · سوقني | تغيير السرعة |
+| بجدية · رجّع المزح | إيقاف المزح أو إعادته |
 | باختصار · عادي · بالتفصيل | تغيير مستوى الشرح |
 | سوّها أنت | ينفّذ الوكيل هذه الخطوة بنفسه ثم يعود لسرعتك |
 | ليش؟ | شرح كامل قبل المتابعة |
