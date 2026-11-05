@@ -1,6 +1,6 @@
 # takemyhand
 
-**Mentor mode for AI agents, in any language.** The agent does your task *and* teaches you — then gradually hands the work over to you as you prove you understand it.
+**Mentor mode for AI agents, in any language, for any task.** The agent does your task — code, documents, data, reports — *and* teaches you — then gradually hands the work over to you as you prove you understand it.
 
 > I do → we do → you do
 
@@ -16,13 +16,14 @@ Most "learning mode" skills either explain everything or make you write fixed pi
 | **Any language** | Mirrors your language, keeps technical terms in English with a one-time gloss, builds a bilingual glossary, handles right-to-left scripts | English only |
 | **Three speeds, one word** | `watch` · `guide` · `drive` — recognised in any language | One mode, or a lock you turn on/off |
 | **Zero setup** | No tracking files, no scripts, no dependencies; works in chat apps and coding agents | Often needs profile files, dashboards, or a CLI |
-| **Honest reviews** | A 3-rung hint ladder; never praises wrong code | Varies |
+| **Honest reviews** | A 3-rung hint ladder; never praises wrong work | Varies |
+| **Any task, not just code** | Explains every step — what, why, how — for programs, PDFs, spreadsheets, reports; three explanation levels | Usually code only |
 
 ## The skills
 
 | Skill | Role |
 |---|---|
-| `takemyhand` | The session conductor: language, speeds, insights, gradual release, hand-overs. Start here. |
+| `takemyhand` | The session conductor: language, speeds, explanation levels, step-by-step explanations, gradual release, hand-overs. Start here. |
 | `takemyhand-review` | Reviews your attempt at a handed-over piece: what's right, what's wrong, hint ladder, stage decision. |
 | `takemyhand-recap` | Ends the session: lessons, stage per concept, bilingual glossary, optional teach-back, "quiz me", next exercise. |
 
@@ -32,39 +33,59 @@ Each sibling skill has a short fallback inside `takemyhand`, so the core skill a
 
 The agent runs every part of a session for you; you only steer with plain words.
 
-### 1. Speeds — who writes the code
+### 1. Speeds — who does the work
 
-| Word (any language) | Who writes | What the agent does |
+| Word (any language) | Who does the work | What the agent does |
 |---|---|---|
-| **watch** *(default)* | The agent writes everything | Does the task and explains each meaningful step. No hand-overs. |
-| **guide** | The agent writes routine work; you write the pieces that matter | Explains, and hands you small strategic pieces as you're ready. |
-| **drive** | You write most of it | Sets up, plans, reviews and hints. Writes only boilerplate and what you ask it to fix. |
+| **watch** *(default)* | The agent does everything | Does the task and explains each step. No hand-overs. |
+| **guide** | The agent does the routine part; you do the pieces that matter | Explains, and hands you small meaningful pieces as you're ready. |
+| **drive** | You do most of it | Sets up, plans, reviews and hints. Does only routine setup and what you ask it to fix. |
 
-The session starts in **watch**. The agent tells you the current speed in one line and how to switch. Switching takes effect immediately.
+The session starts in **watch**. Switching takes effect immediately.
 
-### 2. Insights — the "why" behind each step
+### 2. Explanation levels — how much the agent explains
 
-At each meaningful step the agent adds a short block, in your language:
+Independent of the speed: any speed works with any level.
 
-```
-★ Why this way? ─────────────────────────────
-• why this approach (vs. the obvious alternative)
-• the concept or pattern behind it
-• one pitfall to watch for
-─────────────────────────────────────────────
-```
+| Word (any language) | What the agent explains |
+|---|---|
+| **brief** · باختصار | Only the important steps, 1–2 lines each |
+| **normal** · عادي *(default)* | Every meaningful step: what, why, how |
+| **detailed** · بالتفصيل | Every part: each function or section, each decision, the rejected alternatives and the concepts behind them |
 
-Two or three points, specific to your code. Trivial steps (imports, renames, formatting) get none.
+At the start the agent tells you the current speed and level in one line, and the words that change them.
 
-### 3. Gradual release — I do → we do → you do, per concept
+### 3. Step by step — what, why, how
 
-A *concept* is a reusable pattern: input validation, a database query, a state update, a test, an error path… Each one moves through three stages on its own:
+takemyhand works for **any task**: code, PDF or Word documents, spreadsheets, data analysis, reports, slides, writing. After each step the agent explains it, in your language, before moving on:
+
+> **★ Step: build the report's table of contents**
+> - **What:** generated the PDF with three sections and a contents page.
+> - **Why:** readers jump to the section they need; a contents page saves them scrolling.
+> - **How:** `reportlab` with a heading style per level — pitfall: the page numbers are only known after a first pass.
+
+The block is a quote, not a code block, so it follows your text direction — right to left in Arabic, Hebrew, Persian or Urdu.
+
+What gets explained depends on the work:
+
+| Work | At normal level, the agent explains |
+|---|---|
+| **Code** | Each function, class or component: what it does, why it exists, how it fits with the rest |
+| **Documents, PDFs, slides** | The structure and why, the tool or library and why, the steps to produce the file |
+| **Spreadsheets, data** | Each formula, transformation or chart: what it computes, why, how to read it |
+| **Writing, reports** | The outline, the tone, and the key choices in each section |
+
+When a piece of work is finished, the agent adds a short **map** of its parts (functions, sections, sheets) with one line each on what the part is for.
+
+### 4. Gradual release — I do → we do → you do, per concept
+
+In **guide** and **drive**, the work moves to you one *concept* at a time. A concept is a reusable skill: in code a pattern (input validation, a database query, an error path…), in other work a technique (structuring a document, choosing a chart, writing a formula…). Each one moves through three stages on its own:
 
 | Stage | Name | Next time this concept appears |
 |---|---|---|
-| 1 | **I do** | The agent writes it and explains it. |
-| 2 | **We do** | The agent scaffolds it (file, signature, surrounding code); you write the meaningful 2–10 lines. |
-| 3 | **You do** | You write the whole unit (function, component, test); the agent only reviews. |
+| 1 | **I do** | The agent does it and explains it. |
+| 2 | **We do** | The agent prepares everything around it; you do the meaningful part — 2–10 lines of code, or one decision or step (order the sections, write the formula, pick the chart). |
+| 3 | **You do** | You do the whole unit (a function, a section, a sheet); the agent only reviews. |
 
 How a concept moves:
 
@@ -76,9 +97,9 @@ How a concept moves:
 
 **watch** keeps every concept at stage 1. **drive** starts every new concept at stage 2. So you can be at "you do" for validation and at "I do" for async code in the same session.
 
-### 4. Hand-overs — your turn to write
+### 5. Hand-overs — your turn
 
-When a piece is yours, the agent builds everything around it, leaves a marker in your language, and stops:
+When a piece is yours, the agent prepares everything around it, leaves a marker in your language, and stops. In code it is a comment; in a document a visible placeholder; a decision with no place in a file is asked in the chat:
 
 ```js
 // TODO(you): save the flag only after a successful login
@@ -88,26 +109,30 @@ When a piece is yours, the agent builds everything around it, leaves a marker in
 # TODO(أنت): احفظ القيمة فقط بعد نجاح تسجيل الدخول
 ```
 
-It then gives you three short labels — **Context** (what's built and why this piece matters), **Your task** (exactly what to write, and where), **Hint** (the trade-offs, not the answer) — and waits. Only pieces with real decisions are handed over, never boilerplate, and only one at a time.
+```
+[TODO(أنت): اكتب ملخص التقرير في ثلاثة أسطر]
+```
 
-### 5. Review — the hint ladder
+It then gives you three short labels — **Context** (what's built and why this piece matters), **Your task** (exactly what to do, and where), **Hint** (the trade-offs, not the answer) — and waits. Only pieces with real decisions are handed over, never routine work, and only one at a time.
 
-When you reply with your attempt, `takemyhand-review` reads (and runs, when it can) your code, then says what's right, names every real problem, and climbs one rung at a time:
+### 6. Review — the hint ladder
+
+When you reply with your attempt, `takemyhand-review` reads it and checks it for real when it can (runs the code, opens the document, recalculates the formula), then says what's right, names every real problem, and climbs one rung at a time:
 
 | Rung | You get |
 |---|---|
 | 1 | A guiding question — "What happens when the list is empty?" |
 | 2 | A pointed hint — "Line 4 runs before the value is loaded." |
-| 3 | The solution, explained line by line |
+| 3 | The solution, explained step by step |
 
-A trivial slip (typo, missing import) is fixed straight away and doesn't count against you. Wrong code is never called correct. The agent then integrates the final version, removes the marker, verifies it, and carries on.
+A trivial slip (typo, missing import) is fixed straight away and doesn't count against you. Wrong work is never called correct. The agent then integrates the final version, removes the marker, verifies it, and carries on.
 
-### 6. Recap — lock it in
+### 7. Recap — lock it in
 
 When the task is done, `takemyhand-recap` gives you, in your language:
 
-1. **What we built** — 1–2 lines.
-2. **Key lessons** — 2–4 points tied to this session's real code.
+1. **What we did** — 1–2 lines.
+2. **Key lessons** — 2–4 points tied to this session's real work.
 3. **Where you are** — the stage of each concept you practiced.
 4. **Glossary** — every technical term explained during the session, with its meaning in your language.
 5. **Next exercise** — one small task for your weakest concept, if a natural one exists.
@@ -132,7 +157,7 @@ Everything is plain words, typed in any language. The agent recognises them by m
 
 The task is always yours: run `/takemyhand` with no task and the agent asks what you want to work on instead of picking a lesson for you.
 
-Start in a specific speed by saying it up front: `/takemyhand drive: add pagination to the users list`.
+Start in a specific speed or level by saying it up front: `/takemyhand drive: add pagination to the users list`, `/takemyhand detailed: make a PDF report from sales.csv`.
 
 ### During a session
 
@@ -141,12 +166,13 @@ Start in a specific speed by saying it up front: `/takemyhand drive: add paginat
 | **watch** | تفرّج · mira · regarde · schau zu · 見てる · 看着 | Switch to watch speed |
 | **guide me** | خذ بيدي · guíame · guide-moi · führ mich · 手伝って · 带我 | Switch to guide speed |
 | **I'll drive** | سوقني · yo conduzco · je conduis · ich fahre · 私が書く · 我来写 | Switch to drive speed |
+| **brief** · **normal** · **detailed** | باختصار · عادي · بالتفصيل | Change the explanation level |
 | **just do it** | سوّها أنت · hazlo tú · fais-le | The agent does this one step itself, then returns to your speed |
 | **why?** | ليش؟ · ¿por qué? · pourquoi ? | A full answer at your level before moving on |
-| *your code*, or **done** | خلصت · listo · fini | Your attempt is reviewed (`takemyhand-review`) |
+| *your attempt*, or **done** | خلصت · listo · fini | Your attempt is reviewed (`takemyhand-review`) |
 | **is this right?** | صح كذا؟ · ¿está bien? | Same — review of your attempt |
 | **I don't know** / **hint** | ما أعرف · تلميح · no sé · une piste | The next rung of the hint ladder |
-| **show me** | ورني · muéstrame · montre-moi | The solution, explained line by line (the concept steps back one stage) |
+| **show me** | ورني · muéstrame · montre-moi | The solution, explained step by step (the concept steps back one stage) |
 | **speak English** / **تكلم عربي** | — | Switch the session language |
 
 ### End
@@ -155,7 +181,7 @@ Start in a specific speed by saying it up front: `/takemyhand drive: add paginat
 |---|---|
 | **recap** · **ملخص** | The full recap (`takemyhand-recap`) |
 | **glossary** · **المصطلحات** | Just the bilingual glossary |
-| **quiz me** · **اختبرني** | 3–5 questions drawn from this session's code, one at a time, with feedback after each |
+| **quiz me** · **اختبرني** | 3–5 questions drawn from this session's work, one at a time, with feedback after each |
 
 In Claude Code you can also call the sibling skills directly: `/takemyhand-review`, `/takemyhand-recap` (plugin: `/takemyhand:takemyhand-review`, `/takemyhand:takemyhand-recap`).
 
@@ -245,7 +271,7 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 ## بالعربية
 
-**takemyhand** مهارة تجعل الوكيل ينجز مهمتك ويعلّمك أثناءها، ثم يسلّمك العمل تدريجياً: **أنا أعمل ← نعمل معاً ← أنت تعمل**، لكل مفهوم على حدة.
+**takemyhand** مهارة تجعل الوكيل ينجز مهمتك (برمجة أو مستندات أو بيانات أو تقارير) ويشرح لك كل خطوة أثناءها، ثم يسلّمك العمل تدريجياً: **أنا أعمل ← نعمل معاً ← أنت تعمل**، لكل مفهوم على حدة.
 
 - **تدعم كل اللغات**: تحدّثك بلغتك، وتُبقي المصطلحات التقنية بالإنجليزية مع شرح قصير مرة واحدة، وتبني لك مسرد مصطلحات ثنائي اللغة.
 - **ثلاث سرعات بكلمة واحدة**: تفرّج · خذ بيدي · سوقني.
@@ -255,12 +281,15 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 ### كيف تعمل
 
-- **السرعات**: تبدأ الجلسة على «تفرّج»: يكتب الوكيل كل شيء ويشرح. في «خذ بيدي» تكتب أنت الأجزاء المهمة، وفي «سوقني» تكتب أنت أغلب الكود والوكيل يخطط ويراجع ويلمّح.
-- **لماذا هكذا؟**: عند كل خطوة مهمة يضيف الوكيل نقطتين أو ثلاثاً: سبب اختيار الطريقة، والمفهوم وراءها، وخطأ شائع يجب تجنّبه.
-- **التسليم التدريجي**: لكل مفهوم ثلاث مراحل: أنا أعمل ← نعمل معاً ← أنت تعمل. ينتقل المفهوم مرحلة للأمام إذا كانت محاولتك صحيحة بتلميح واحد على الأكثر، ويبقى مكانه إذا احتجت تلميحاً مباشراً، ويرجع مرحلة إذا احتجت الحل كاملاً. الخطأ الإملائي البسيط لا يُحسب عليك.
-- **التسليم**: يبني الوكيل كل ما حول الجزء المهم، ويترك علامة مثل `TODO(أنت)` في الكود، ثم يكتب لك السياق والمطلوب وتلميحاً، وينتظر محاولتك.
-- **المراجعة**: يقول ما هو صحيح وكل مشكلة حقيقية، ثم يصعد سلّم التلميحات درجة درجة: سؤال موجّه، ثم تلميح مباشر، ثم الحل مشروحاً سطراً سطراً.
-- **الملخص**: في النهاية تحصل على ما بنيناه، والدروس، ومرحلة كل مفهوم، ومسرد المصطلحات، وتمرين تالٍ، مع شرح عكسي اختياري.
+- **أي مهمة**: برنامج، ملف PDF أو Word، جدول بيانات، تحليل، تقرير، عرض تقديمي، أو كتابة.
+- **السرعات**: تبدأ الجلسة على «تفرّج»: ينفّذ الوكيل كل شيء ويشرح. في «خذ بيدي» ينفّذ جزءاً وتنفّذ أنت الأجزاء المهمة، وفي «سوقني» تنفّذ أنت أغلب العمل والوكيل يخطط ويراجع ويلمّح.
+- **مستويات الشرح**: «باختصار» للخطوات المهمة فقط، و«عادي» (الافتراضي) لكل خطوة مهمة، و«بالتفصيل» لكل جزء وكل قرار والبدائل. المستوى مستقل عن السرعة.
+- **شرح خطوة بخطوة**: بعد كل خطوة يشرح الوكيل: ماذا فعل، ولماذا بهذه الطريقة، وكيف. في البرنامج يشرح كل دالة وفائدتها، وفي ملف PDF يشرح ترتيبه والأداة التي استخدمها وخطوات إنشائه. يظهر الشرح كاقتباس يتبع اتجاه النص، فيأتي من اليمين بالعربية.
+- **خريطة العمل**: عند انتهاء جزء من العمل يعرض الوكيل أجزاءه (الدوال أو الأقسام) مع سطر عن فائدة كل جزء.
+- **التسليم التدريجي**: في «خذ بيدي» و«سوقني» لكل مفهوم ثلاث مراحل: أنا أعمل ← نعمل معاً ← أنت تعمل. ينتقل المفهوم مرحلة للأمام إذا كانت محاولتك صحيحة بتلميح واحد على الأكثر، ويبقى مكانه إذا احتجت تلميحاً مباشراً، ويرجع مرحلة إذا احتجت الحل كاملاً. الخطأ الإملائي البسيط لا يُحسب عليك.
+- **التسليم**: يجهّز الوكيل كل ما حول الجزء المهم، ويترك علامة مثل `TODO(أنت)` في الكود أو في المستند، أو يسألك القرار في المحادثة، ثم يكتب لك السياق والمطلوب وتلميحاً، وينتظر محاولتك.
+- **المراجعة**: يقول ما هو صحيح وكل مشكلة حقيقية، ثم يصعد سلّم التلميحات درجة درجة: سؤال موجّه، ثم تلميح مباشر، ثم الحل مشروحاً خطوة خطوة.
+- **الملخص**: في النهاية تحصل على ما أنجزناه، والدروس، ومرحلة كل مفهوم، ومسرد المصطلحات، وتمرين تالٍ، مع شرح عكسي اختياري.
 
 ### الأوامر داخل الوكيل
 
@@ -268,6 +297,7 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 |---|---|
 | `/takemyhand <المهمة>` | بدء جلسة في Claude Code (أو `/takemyhand:takemyhand` إذا ثُبّتت كإضافة). في الوكلاء الآخرين: «استخدم takemyhand لـ…». بدون مهمة يسألك الوكيل ماذا تريد أن تعمل |
 | تفرّج · خذ بيدي · سوقني | تغيير السرعة |
+| باختصار · عادي · بالتفصيل | تغيير مستوى الشرح |
 | سوّها أنت | ينفّذ الوكيل هذه الخطوة بنفسه ثم يعود لسرعتك |
 | ليش؟ | شرح كامل قبل المتابعة |
 | خلصت · صح كذا؟ · أو الصق كودك | مراجعة محاولتك |
