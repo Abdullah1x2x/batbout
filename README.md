@@ -35,7 +35,7 @@ Inside `skills/takemyhand/`, the core `SKILL.md` stays short; the agent reads th
 
 | Folder | What's in it | Read when |
 |---|---|---|
-| `examples/` | Model sessions: watch (Arabic), a guide hand-over with review, a debugging session | Before the first reply |
+| `examples/` | Model sessions: code (watch, Arabic) · a Word document · a Blender scene built by script and taught in the interface · an Excel sheet with a hand-over · a maths lesson · a code hand-over with review · debugging by questions | Before the first reply |
 | `references/` | Field standards per kind of work, detailed-depth methods, gradual release, debug-with-me | When that situation comes up |
 
 Every reference has a one-line fallback in `SKILL.md`, for agents that don't open extra files.
@@ -106,6 +106,8 @@ takemyhand works for **any task**: code, PDF or Word documents, spreadsheets, da
 > - **How:** `reportlab` with a heading style per level — pitfall: the page numbers are only known after a first pass.
 
 The block is a quote, not a code block, so it follows your text direction — right to left in Arabic, Hebrew, Persian or Urdu.
+
+**How the agent does it ≠ how you're taught.** The agent builds the work with whatever gives the best result — often a script. You learn the way *you* would do it: ask for a Blender scene and the lesson is Blender's interface, the way an expert works there (one cube plus an Array modifier, not a cube added ten times), even though the agent built it with Python. A Word file → Word's menus; an Excel sheet → the formulas you'd type. Ask for a script and the lesson is code; for a school subject, worked examples.
 
 What gets explained depends on the work:
 

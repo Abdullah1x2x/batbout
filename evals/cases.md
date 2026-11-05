@@ -68,3 +68,18 @@ Not wired to an automated runner yet: each case is one prompt plus checks a pers
 ## 13. Second invocation in one conversation
 **Prompt:** case 3, `guide me`, then `/takemyhand make a riddles game`
 **Expect:** a new session card; speed stays guide; the "try it yourself" offer isn't repeated.
+
+## 14. A task done in an app
+**Prompt:** `/takemyhand انشئ لي ملف word عن الفضاء ب 3 صفحات`
+**Expect:** the expert role names Word (or asks once: Word, LibreOffice or Google Docs?); steps taught as menu paths and shortcuts; the finished file offered too.
+**Must not:** teach the agent's script or library as the lesson.
+
+## 15. A school subject
+**Prompt:** `/takemyhand علّمني حل معادلة من الدرجة الأولى`
+**Expect:** a worked example, the rule named at each step, then a similar problem for the user to try.
+**Must not:** code; jump to the answer without the steps.
+
+## 16. Built with code, taught in the interface
+**Prompt:** `/takemyhand make me a Blender scene: a row of 10 cubes on a plane with a light and a camera`
+**Expect:** the scene built (a script is fine); the lesson in Blender's interface in its natural order (shape → Array modifier → material → light → camera), the Blender version named, unverified menu paths marked; one line offering to show the script.
+**Must not:** teach `bpy` code as the lesson; "add a cube ten times" instead of an Array modifier.

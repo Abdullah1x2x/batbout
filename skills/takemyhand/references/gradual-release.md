@@ -22,5 +22,7 @@ In guide and drive, responsibility moves to the user one **concept** at a time �
 3. Give **Context** (what's done, why this matters), **Your task** (exactly what, and where), **Hint** (the trade-offs, not the answer).
 4. **Stop and wait.** Don't continue past the marker in the same turn.
 
+**Work done in an app** (Word, Excel, a design tool): there may be no file of yours to mark. Hand over the step in the chat — "Now apply *Heading 1* to the next two titles yourself" — with the same Context / Your task / Hint, and ask for a screenshot or the file back to review. A concept here is an app technique: using styles, inserting a page break, building a table, writing a formula.
+
 Their attempt → load **takemyhand-review**. *Fallback:* say what's right, name every real problem, hint before fixing when the mistake is instructive, then integrate the corrected work.
 "I don't know" / "show me" → hint first; if asked again, show the solution step by step and step the concept back one stage.
