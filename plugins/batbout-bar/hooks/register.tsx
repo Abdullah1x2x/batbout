@@ -228,16 +228,21 @@ export const register: Register = on => {
 
     // A tool asks Batbout, so it sends the word as a message
     const send = (w: Word) => void $.prompt.submit({ text: WORDS[w][s.lang] })
-    // A setting changes quietly: lit at once here, a hidden note tells the skill
-    // and a toast tells the person. Not via `$.command.run('batbout-bar')`: a
-    // plugin's own run skips its own hooks, so nobody would answer it
+    // A setting lights at once here, then runs the skill's own visible command
+    // (`/batbout:watch`…), which the batbout plugin answers. Not the bar's own
+    // `/batbout-bar`: a plugin's own run skips its own hooks, so nobody answers it
     const set = async (w: Word) => {
-      const { text, context } = noteFor(await edit($, x => apply(x, w)))
-      $.ui.toast(text)
-      // A refused note (a host limit) leaves the setting changed, only unannounced
-      void $.session.append({
-        message: { type: 'user', content: context.map(c => ({ type: 'text' as const, text: c })) },
-      }).catch(() => undefined)
+      const now = await edit($, x => apply(x, w))
+      try {
+        await $.command.run({ command: `batbout:${argOf(w)}`, args: '' })
+      } catch {
+        // No batbout plugin (the skill installed by script): a hidden note and a toast instead
+        const { text, context } = noteFor(now)
+        $.ui.toast(text)
+        void $.session.append({
+          message: { type: 'user', content: context.map(c => ({ type: 'text' as const, text: c })) },
+        }).catch(() => undefined)
+      }
     }
 
     // A segmented control: the chosen option sits on a light duck-coloured

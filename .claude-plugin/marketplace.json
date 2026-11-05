@@ -15,7 +15,7 @@
       "name": "batbout-bar",
       "source": "./plugins/batbout-bar",
       "description": "Claude Code control panel for batbout: speed, depth, humor and quick tools as buttons above the prompt.",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "license": "Apache-2.0"
     }
   ]
