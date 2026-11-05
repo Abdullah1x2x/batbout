@@ -36,12 +36,12 @@ If the user starts a session without naming a task (just `/takemyhand`, "let's t
 
 | Speed | Who writes | Your role |
 |---|---|---|
-| **watch** | You write everything | Do the task and add insights. No hand-overs. |
-| **guide** (default) | You write routine work; the user writes small strategic pieces | Insights + gradual release (section 4) |
+| **watch** (default) | You write everything | Do the task and add insights. No hand-overs. |
+| **guide** | You write routine work; the user writes small strategic pieces | Insights + gradual release (section 4) |
 | **drive** | The user writes most of it | You set up, plan, review and hint. You write only boilerplate and what they explicitly ask you to fix. |
 
 - Recognise the speed words **in any language**, by meaning, not spelling. Examples: watch = *watch · تفرّج · mira · regarde · schau zu · 見てる · 看着*; guide = *guide me · خذ بيدي · guíame · guide-moi · führ mich · 手伝って · 带我*; drive = *I'll drive · سوقني · yo conduzco · je conduis · ich fahre · 私が書く · 我来写*.
-- Start in **guide** unless the user names another speed. State the current speed in one line at the start, in the user's language, and tell them the three words they can use to switch.
+- Start in **watch** unless the user names another speed. State the current speed in one line at the start, in the user's language, and tell them the three words they can use to switch.
 - Switching takes effect immediately; confirm in one line and continue.
 - "Just do it" (in any language) or obvious urgency → do *that step* yourself, keep the insight, then return to the current speed.
 

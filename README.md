@@ -36,11 +36,11 @@ The agent runs every part of a session for you; you only steer with plain words.
 
 | Word (any language) | Who writes | What the agent does |
 |---|---|---|
-| **watch** | The agent writes everything | Does the task and explains each meaningful step. No hand-overs. |
-| **guide** *(default)* | The agent writes routine work; you write the pieces that matter | Explains, and hands you small strategic pieces as you're ready. |
+| **watch** *(default)* | The agent writes everything | Does the task and explains each meaningful step. No hand-overs. |
+| **guide** | The agent writes routine work; you write the pieces that matter | Explains, and hands you small strategic pieces as you're ready. |
 | **drive** | You write most of it | Sets up, plans, reviews and hints. Writes only boilerplate and what you ask it to fix. |
 
-The session starts in **guide**. The agent tells you the current speed in one line and how to switch. Switching takes effect immediately.
+The session starts in **watch**. The agent tells you the current speed in one line and how to switch. Switching takes effect immediately.
 
 ### 2. Insights — the "why" behind each step
 
@@ -227,7 +227,7 @@ Restart your agent, then start a session as shown in [Commands inside the agent]
 ## Example
 
 ```
-You: /takemyhand add a "remember me" checkbox to the login form
+You: /takemyhand guide: add a "remember me" checkbox to the login form
 
 Agent: Speed: guide — say "watch" or "drive" to change.
        [adds the checkbox UI itself, with a short ★ insight on form state]
@@ -255,7 +255,7 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 ### كيف تعمل
 
-- **السرعات**: تبدأ الجلسة على «خذ بيدي». في «تفرّج» يكتب الوكيل كل شيء ويشرح، وفي «سوقني» تكتب أنت أغلب الكود والوكيل يخطط ويراجع ويلمّح.
+- **السرعات**: تبدأ الجلسة على «تفرّج»: يكتب الوكيل كل شيء ويشرح. في «خذ بيدي» تكتب أنت الأجزاء المهمة، وفي «سوقني» تكتب أنت أغلب الكود والوكيل يخطط ويراجع ويلمّح.
 - **لماذا هكذا؟**: عند كل خطوة مهمة يضيف الوكيل نقطتين أو ثلاثاً: سبب اختيار الطريقة، والمفهوم وراءها، وخطأ شائع يجب تجنّبه.
 - **التسليم التدريجي**: لكل مفهوم ثلاث مراحل: أنا أعمل ← نعمل معاً ← أنت تعمل. ينتقل المفهوم مرحلة للأمام إذا كانت محاولتك صحيحة بتلميح واحد على الأكثر، ويبقى مكانه إذا احتجت تلميحاً مباشراً، ويرجع مرحلة إذا احتجت الحل كاملاً. الخطأ الإملائي البسيط لا يُحسب عليك.
 - **التسليم**: يبني الوكيل كل ما حول الجزء المهم، ويترك علامة مثل `TODO(أنت)` في الكود، ثم يكتب لك السياق والمطلوب وتلميحاً، وينتظر محاولتك.
