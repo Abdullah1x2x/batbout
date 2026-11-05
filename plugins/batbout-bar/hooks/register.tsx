@@ -119,6 +119,11 @@ export const noteFor = (s: BarSettings): { text: string; context: string[] } => 
   }
 }
 
+// The hidden line each prompt carries while Batbout runs
+export const settingsLine = (s: BarSettings) =>
+  `[batbout-bar] Current Batbout settings: speed ${s.speed} ("${WORDS[s.speed].en}"), depth ${s.depth}, `
+  + `humor ${s.humor ? 'on' : 'off'}. Follow them unless the user changes them in this message.`
+
 // "/batbout guide: task" or "/batbout detailed: task" starts with that setting
 export const start = (s: BarSettings, args: string): BarSettings => {
   const head = args.split(':')[0] ?? ''
@@ -192,10 +197,12 @@ export const register: Register = on => {
     const track = e.command && isSkill(e.command.name)
       ? edit($, s => start(s, e.command?.args ?? ''))
       : e.command
-        ? Promise.resolve()
+        ? Promise.resolve(undefined)
         : edit($, s => (s.isActive ? { ...apply(s, e.text), lang: langOf(e.text, s.lang) } : s))
-    await track.catch(() => undefined)
-    return next(e)
+    const now = await track.catch(() => undefined)
+    // While Batbout runs, every prompt carries the bar's settings, so the model
+    // knows them in a new conversation or after older notes were compacted away
+    return now?.isActive ? next({ ...e, context: [...(e.context ?? []), settingsLine(now)] }) : next(e)
   })
 
   on('turn.complete', async ($, e, next) => {

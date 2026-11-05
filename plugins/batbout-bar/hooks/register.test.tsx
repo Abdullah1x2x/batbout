@@ -218,3 +218,20 @@ test('a setting press leaves a hidden note and never runs its own command', asyn
   expect(runs).toEqual([])
   await ui.unmount()
 })
+
+test('while Batbout runs, every prompt carries the current settings', async ($, on) => {
+  const seen: (readonly string[] | undefined)[] = []
+  on('prompt.submit', (_, e) => {
+    seen.push(e.context)
+    return { text: e.text }
+  })
+
+  await $.prompt.submit(typed('just chatting'))
+  expect(seen.at(-1)).toBe(undefined)
+
+  await $.prompt.submit(typed('/batbout drive: make a game', { name: 'batbout:batbout', args: 'drive: make a game' }))
+  expect(seen.at(-1)?.at(-1)).toMatch(/speed drive/)
+
+  await $.prompt.submit(typed('بالتفصيل'))
+  expect(seen.at(-1)?.at(-1)).toMatch(/speed drive .*depth detailed/)
+})

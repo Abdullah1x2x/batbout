@@ -1,6 +1,6 @@
 {
   "name": "batbout-bar",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A control panel for the batbout skill in Claude Code: speed, depth, humor and quick tools as buttons above the prompt.",
   "author": { "name": "The batbout Authors" },
   "license": "Apache-2.0",
