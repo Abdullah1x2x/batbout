@@ -31,6 +31,15 @@ Most "learning mode" skills either explain everything or make you write fixed pi
 
 Each sibling skill has a short fallback inside `takemyhand`, so the core skill also works on its own.
 
+Inside `skills/takemyhand/`, the core `SKILL.md` stays short; the agent reads the rest only when it's needed:
+
+| Folder | What's in it | Read when |
+|---|---|---|
+| `examples/` | Model sessions: watch (Arabic), a guide hand-over with review, a debugging session | Before the first reply |
+| `references/` | Field standards per kind of work, detailed-depth methods, gradual release, debug-with-me | When that situation comes up |
+
+Every reference has a one-line fallback in `SKILL.md`, for agents that don't open extra files.
+
 ## How it works
 
 The agent runs every part of a session for you; you only steer with plain words.
@@ -314,6 +323,14 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 ---
 
 ---
+
+## Background
+
+The teaching ideas come from established practice:
+
+- **Gradual release of responsibility** (I do → we do → you do) — P. David Pearson and Margaret C. Gallagher, *The instruction of reading comprehension*, 1983.
+- **Scaffolding** — the idea behind the hint ladder: David Wood, Jerome Bruner and Gail Ross, *The role of tutoring in problem solving*, 1976.
+- **Rubber duck debugging** — Andrew Hunt and David Thomas, *The Pragmatic Programmer*, 1999.
 
 ## Testing the skill
 
