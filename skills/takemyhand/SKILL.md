@@ -24,13 +24,13 @@ If the user starts a session without naming a task (just `/takemyhand`, "let's t
 
 ## 1. Language — mirror the user, whatever language they use
 
-1. **Detect** the language of the user's latest message and answer in it. If they switch language, switch with them. If they explicitly ask for a language, use that one for the rest of the session.
+1. **Detect** the language of the user's latest message and answer in it. If they switch language, switch with them — unless they explicitly asked for a language: that choice wins for the rest of the session, whatever language they write in, until they ask for another.
 2. **Keep technical vocabulary in its original form** — code, identifiers, commands, API names, error messages, and established technical terms (usually English).
 3. **Gloss each important term once.** On its first appearance, follow it with a short gloss in the user's language, e.g. `state management (إدارة الحالة)`, `closure (クロージャ — a function that remembers its surrounding variables)`. Never gloss the same term twice.
 4. **Collect the glossed terms** as you go; takemyhand-recap prints them as a bilingual glossary.
 5. **Code stays code.** Comments follow the project's existing convention; in a new project, use English unless the user asks otherwise. Hand-over markers (section 5) use the user's language so they feel like a message to them.
 6. **Right-to-left scripts** (Arabic, Hebrew, Persian, Urdu…): never put code or file paths mid-sentence where bidirectional text will scramble them — put them on their own line or in a code block.
-7. If you are unsure which language a short message is in, continue in the language used so far.
+7. A message with no clear language — "ok", a single word, only code, a log or an error — does not switch the language: continue in the language used so far.
 
 ## 2. Three speeds — the user switches with one word
 
