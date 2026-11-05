@@ -221,12 +221,16 @@ export const register: Register = on => {
 
     // A tool asks Batbout, so it sends the word as a message
     const send = (w: Word) => void $.prompt.submit({ text: WORDS[w][s.lang] })
-    // A setting changes quietly through `/batbout-bar <word>`: lit at once here,
-    // the command (queued until the turn ends) prints it and tells the skill
+    // A setting changes quietly: lit at once here, a hidden note tells the skill
+    // and a toast tells the person. Not via `$.command.run('batbout-bar')`: a
+    // plugin's own run skips its own hooks, so nobody would answer it
     const set = async (w: Word) => {
-      await edit($, x => apply(x, w))
-      // A refused run (a host limit) leaves the setting changed, only unannounced
-      void $.command.run({ command: 'batbout-bar', args: argOf(w) }).catch(() => undefined)
+      const { text, context } = noteFor(await edit($, x => apply(x, w)))
+      $.ui.toast(text)
+      // A refused note (a host limit) leaves the setting changed, only unannounced
+      void $.session.append({
+        message: { type: 'user', content: context.map(c => ({ type: 'text' as const, text: c })) },
+      }).catch(() => undefined)
     }
 
     // A segmented control: the chosen option sits on a light duck-coloured

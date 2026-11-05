@@ -196,3 +196,25 @@ test('/batbout-bar guide answers with the new settings', async ($, on) => {
   const shown = await $.command.run(ran('batbout-bar', ''))
   expect(shown.text).toBe('Batbout bar shown.')
 })
+
+test('a setting press leaves a hidden note and never runs its own command', async ($, on) => {
+  const notes: string[] = []
+  const runs: string[] = []
+  on('prompt.submit', (_, e) => ({ text: e.text }))
+  on('session.append', (_, e, next) => {
+    for (const b of e.message.content) if (b.type === 'text') notes.push(String(b.text))
+    return next(e)
+  })
+  on('ui.toast', () => ({ value: undefined }))
+  on('command.run', (_, e) => {
+    runs.push(e.command)
+    return { text: '' }
+  })
+
+  await $.prompt.submit(typed('/batbout make a game', { name: 'batbout', args: 'make a game' }))
+  const ui = await $.ui.mount({ ...BAND, surface: 'desktop' })
+  await ui.press({ key: 'guide' })
+  expect(notes.at(-1)).toMatch(/speed guide/)
+  expect(runs).toEqual([])
+  await ui.unmount()
+})
