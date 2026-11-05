@@ -33,6 +33,18 @@ Each sibling skill has a short fallback inside `takemyhand`, so the core skill a
 
 The agent runs every part of a session for you; you only steer with plain words.
 
+### 0. The expert teacher — chosen for your subject
+
+Before the first step the agent names the subject of your task — machine learning, web development, document design, data analysis… — and teaches as a senior expert in *that* field: its vocabulary, its established practices, the mistakes its beginners make, and its standards for good work. If the subject changes mid-session, the role changes with it.
+
+| Speed | The expert… |
+|---|---|
+| **watch** | demonstrates — works as an expert would and explains how an expert thinks |
+| **guide** | coaches — hands you the decisions the field considers essential |
+| **drive** | reviews — judges your work by the field's standards |
+
+The level sets how deep the expert goes: key decisions only (**brief**), every step (**normal**), or also the concepts and the field's alternatives (**detailed**).
+
 ### 1. Speeds — who does the work
 
 | Word (any language) | Who does the work | What the agent does |
@@ -53,7 +65,7 @@ Independent of the speed: any speed works with any level.
 | **normal** · عادي *(default)* | Every meaningful step: what, why, how |
 | **detailed** · بالتفصيل | Every part: each function or section, each decision, the rejected alternatives and the concepts behind them — each step taught with the methods that suit it |
 
-At the start the agent tells you the current speed and level in one line, and the words that change them.
+At the start the agent tells you its expert role, the current speed and the level in one line — e.g. *Teacher: machine-learning expert · Speed: watch · Level: normal* — and the words that change them.
 
 ### 3. Step by step — what, why, how
 
@@ -284,6 +296,7 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 ### كيف تعمل
 
 - **أي مهمة**: برنامج، ملف PDF أو Word، جدول بيانات، تحليل، تقرير، عرض تقديمي، أو كتابة.
+- **معلّم خبير في موضوعك**: يحدد الوكيل موضوع المهمة (تعلّم الآلة، تطوير الويب، تصميم المستندات…) ويعلّمك كخبير في هذا المجال: مصطلحاته، وممارساته المعتمدة، وأخطاء المبتدئين فيه. في «تفرّج» يعرض كيف يعمل الخبير، وفي «خذ بيدي» يدرّبك على قرارات المجال الأساسية، وفي «سوقني» يراجع عملك بمعايير المجال. ويتغيّر الدور إذا تغيّر الموضوع.
 - **السرعات**: تبدأ الجلسة على «تفرّج»: ينفّذ الوكيل كل شيء ويشرح. في «خذ بيدي» ينفّذ جزءاً وتنفّذ أنت الأجزاء المهمة، وفي «سوقني» تنفّذ أنت أغلب العمل والوكيل يخطط ويراجع ويلمّح.
 - **مستويات الشرح**: «باختصار» للخطوات المهمة فقط، و«عادي» (الافتراضي) لكل خطوة مهمة، و«بالتفصيل» لكل جزء وكل قرار والبدائل، ويختار الوكيل لكل خطوة طريقة الشرح الأنسب لموضوعها: مثال بأرقام حقيقية للمعادلة، وجدول بدائل للقرار، وتشبيه للفكرة الجديدة، وشرح سطر سطر للكود الكثيف، وسؤال لاختبار الفهم، وغيرها. المستوى مستقل عن السرعة.
 - **شرح خطوة بخطوة**: بعد كل خطوة يشرح الوكيل: ماذا فعل، ولماذا بهذه الطريقة، وكيف. في البرنامج يشرح كل دالة وفائدتها، وفي ملف PDF يشرح ترتيبه والأداة التي استخدمها وخطوات إنشائه. يظهر الشرح كاقتباس يتبع اتجاه النص، فيأتي من اليمين بالعربية.
