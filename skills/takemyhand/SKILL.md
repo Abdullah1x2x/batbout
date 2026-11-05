@@ -18,6 +18,10 @@ Works the same in a chat app and in a coding agent. No tracking files, no setup,
 
 ---
 
+## 0. No task yet? Ask — never pick one
+
+If the user starts a session without naming a task (just `/takemyhand`, "let's try it", "teach me"), do not choose a task or start a lesson yourself. In their language, ask in one line what they want to build, fix or understand, and wait. Suggest a small practice task only if they ask for one, and let them pick it.
+
 ## 1. Language — mirror the user, whatever language they use
 
 1. **Detect** the language of the user's latest message and answer in it. If they switch language, switch with them. If they explicitly ask for a language, use that one for the rest of the session.

@@ -130,6 +130,8 @@ Everything is plain words, typed in any language. The agent recognises them by m
 | Claude Code (installed as a plugin) | `/takemyhand:takemyhand <your task>` |
 | Any other agent or Claude app | "Use takemyhand to <your task>" |
 
+The task is always yours: run `/takemyhand` with no task and the agent asks what you want to work on instead of picking a lesson for you.
+
 Start in a specific speed by saying it up front: `/takemyhand drive: add pagination to the users list`.
 
 ### During a session
@@ -264,7 +266,7 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 | قل | ماذا يحدث |
 |---|---|
-| `/takemyhand <المهمة>` | بدء جلسة في Claude Code (أو `/takemyhand:takemyhand` إذا ثُبّتت كإضافة). في الوكلاء الآخرين: «استخدم takemyhand لـ…» |
+| `/takemyhand <المهمة>` | بدء جلسة في Claude Code (أو `/takemyhand:takemyhand` إذا ثُبّتت كإضافة). في الوكلاء الآخرين: «استخدم takemyhand لـ…». بدون مهمة يسألك الوكيل ماذا تريد أن تعمل |
 | تفرّج · خذ بيدي · سوقني | تغيير السرعة |
 | سوّها أنت | ينفّذ الوكيل هذه الخطوة بنفسه ثم يعود لسرعتك |
 | ليش؟ | شرح كامل قبل المتابعة |
