@@ -190,6 +190,9 @@ test('/batbout-bar guide answers with the new settings', async ($, on) => {
   expect(out.text).toMatch(/Guide/)
   const prefixed = await $.command.run(ran('batbout-bar:batbout-bar', 'drive'))
   expect(prefixed.text).toMatch(/Drive/)
+  // A host that puts the argument in the name, and one that sends no args at all
+  const joined = await $.command.run({ ...ran('batbout-bar watch', ''), args: undefined as unknown as string })
+  expect(joined.text).toMatch(/Watch/)
   const shown = await $.command.run(ran('batbout-bar', ''))
   expect(shown.text).toBe('Batbout bar shown.')
 })

@@ -161,22 +161,30 @@ export const register: Register = on => {
   // The registered name can come back prefixed (`<plugin>:batbout-bar`), so match
   // any form of it here rather than one exact name in the matcher
   on('command.run', async ($, e, next) => {
-    if (!isBarCommand(e.command)) return next(e)
-    const w = wordOf(e.args)
-    if (e.args.trim() === '') {
-      await edit($, s => ({ ...s, isActive: true, isCollapsed: false }))
-      return { text: 'Batbout bar shown.' }
+    // A host may hand over "batbout-bar guide" as the name with no args
+    const [name = '', ...rest] = (e.command ?? '').trim().split(/\s+/)
+    if (!isBarCommand(name)) return next(e)
+    const args = (e.args ?? '').trim() || rest.join(' ')
+    // Every path answers with text: a run left without it reads as unanswered
+    try {
+      if (args === '') {
+        await edit($, s => ({ ...s, isActive: true, isCollapsed: false }))
+        return { text: 'Batbout bar shown.' }
+      }
+      const w = wordOf(args)
+      if (w === undefined) {
+        return { text: `Unknown setting "${args}". Try: ${(Object.keys(WORDS) as Word[]).map(argOf).join(', ')}` }
+      }
+      const s = fill(await read($, settings))
+      if (!SETTINGS.includes(w)) {
+        void $.prompt.submit({ text: WORDS[w][s.lang] })
+        return { text: `Asked Batbout: ${argOf(w)}` }
+      }
+      await edit($, x => ({ ...apply(x, w), isActive: true }))
+      return noteFor(apply(s, w))
+    } catch (err) {
+      return { text: `batbout-bar could not run "${args}": ${err instanceof Error ? err.message : String(err)}` }
     }
-    if (w === undefined) {
-      return { text: `Unknown setting "${e.args.trim()}". Try: ${(Object.keys(WORDS) as Word[]).map(argOf).join(', ')}` }
-    }
-    const s = fill(await read($, settings))
-    if (!SETTINGS.includes(w)) {
-      void $.prompt.submit({ text: WORDS[w][s.lang] })
-      return {}
-    }
-    await edit($, x => ({ ...apply(x, w), isActive: true }))
-    return noteFor(apply(s, w))
   })
 
   on('prompt.submit', async ($, e, next) => {
