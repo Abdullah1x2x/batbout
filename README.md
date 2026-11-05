@@ -51,7 +51,7 @@ Independent of the speed: any speed works with any level.
 |---|---|
 | **brief** · باختصار | Only the important steps, 1–2 lines each |
 | **normal** · عادي *(default)* | Every meaningful step: what, why, how |
-| **detailed** · بالتفصيل | Every part: each function or section, each decision, the rejected alternatives and the concepts behind them |
+| **detailed** · بالتفصيل | Every part: each function or section, each decision, the rejected alternatives and the concepts behind them — each step taught with the methods that suit it |
 
 At the start the agent tells you the current speed and level in one line, and the words that change them.
 
@@ -74,6 +74,8 @@ What gets explained depends on the work:
 | **Documents, PDFs, slides** | The structure and why, the tool or library and why, the steps to produce the file |
 | **Spreadsheets, data** | Each formula, transformation or chart: what it computes, why, how to read it |
 | **Writing, reports** | The outline, the tone, and the key choices in each section |
+
+At **detailed** level the agent drops the fixed block and picks, for each step, the 2–3 teaching methods that suit that topic — a worked example with real numbers for a formula, an alternatives table for a design choice, an analogy for a new idea, a line-by-line walk-through for dense code, "what breaks without it", an input → output trace, a check-your-understanding question, and more. The methods change as the topics change.
 
 When a piece of work is finished, the agent adds a short **map** of its parts (functions, sections, sheets) with one line each on what the part is for.
 
@@ -283,7 +285,7 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 - **أي مهمة**: برنامج، ملف PDF أو Word، جدول بيانات، تحليل، تقرير، عرض تقديمي، أو كتابة.
 - **السرعات**: تبدأ الجلسة على «تفرّج»: ينفّذ الوكيل كل شيء ويشرح. في «خذ بيدي» ينفّذ جزءاً وتنفّذ أنت الأجزاء المهمة، وفي «سوقني» تنفّذ أنت أغلب العمل والوكيل يخطط ويراجع ويلمّح.
-- **مستويات الشرح**: «باختصار» للخطوات المهمة فقط، و«عادي» (الافتراضي) لكل خطوة مهمة، و«بالتفصيل» لكل جزء وكل قرار والبدائل. المستوى مستقل عن السرعة.
+- **مستويات الشرح**: «باختصار» للخطوات المهمة فقط، و«عادي» (الافتراضي) لكل خطوة مهمة، و«بالتفصيل» لكل جزء وكل قرار والبدائل، ويختار الوكيل لكل خطوة طريقة الشرح الأنسب لموضوعها: مثال بأرقام حقيقية للمعادلة، وجدول بدائل للقرار، وتشبيه للفكرة الجديدة، وشرح سطر سطر للكود الكثيف، وسؤال لاختبار الفهم، وغيرها. المستوى مستقل عن السرعة.
 - **شرح خطوة بخطوة**: بعد كل خطوة يشرح الوكيل: ماذا فعل، ولماذا بهذه الطريقة، وكيف. في البرنامج يشرح كل دالة وفائدتها، وفي ملف PDF يشرح ترتيبه والأداة التي استخدمها وخطوات إنشائه. يظهر الشرح كاقتباس يتبع اتجاه النص، فيأتي من اليمين بالعربية.
 - **خريطة العمل**: عند انتهاء جزء من العمل يعرض الوكيل أجزاءه (الدوال أو الأقسام) مع سطر عن فائدة كل جزء.
 - **التسليم التدريجي**: في «خذ بيدي» و«سوقني» لكل مفهوم ثلاث مراحل: أنا أعمل ← نعمل معاً ← أنت تعمل. ينتقل المفهوم مرحلة للأمام إذا كانت محاولتك صحيحة بتلميح واحد على الأكثر، ويبقى مكانه إذا احتجت تلميحاً مباشراً، ويرجع مرحلة إذا احتجت الحل كاملاً. الخطأ الإملائي البسيط لا يُحسب عليك.
