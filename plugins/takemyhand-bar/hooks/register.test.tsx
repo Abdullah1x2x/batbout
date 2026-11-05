@@ -1,4 +1,5 @@
 import { expect, test } from 'claude-code/testing'
+import { layoutOf, progressIn, record } from './register'
 
 const BAND = {
   plugin: 'takemyhand-bar',
@@ -103,5 +104,61 @@ test('humor Off sends the serious word; the logo is an SVG on desktop', async ($
   await ui.press({ key: 'humorOff' })
   expect(sent.at(-1)).toBe('serious')
   expect((await ui.find({ type: 'Button', key: 'humorOff' }))?.props.dimColor).toBe(undefined)
+  await ui.unmount()
+})
+
+test('collapse shrinks the bar to one row; open brings it back', async ($, on) => {
+  on('prompt.submit', (_, e) => ({ text: e.text }))
+
+  await $.prompt.submit(typed('/takemyhand make a game', { name: 'takemyhand', args: 'make a game' }))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'desktop' })
+  await ui.press({ key: 'collapse' })
+  expect(await ui.find({ type: 'Button', key: 'guide' })).toBe(undefined)
+  expect((await ui.find({ type: 'Text', text: /Watch · Normal/ }))).not.toBe(undefined)
+  await ui.press({ key: 'expand' })
+  expect(await ui.find({ type: 'Button', key: 'guide' })).not.toBe(undefined)
+  await ui.unmount()
+})
+
+test('a narrow bar keeps its shape: tool names and dividers stay, meanings go', async ($, on) => {
+  on('prompt.submit', (_, e) => ({ text: e.text }))
+
+  await $.prompt.submit(typed('/takemyhand make a game', { name: 'takemyhand', args: 'make a game' }))
+
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, bodyColumns: 50 }, surface: 'terminal' })
+  expect((await ui.find({ type: 'Button', key: 'recap' }))?.props.label).toBe('≡ Recap')
+  expect(await ui.find({ type: 'Text', text: '│' })).not.toBe(undefined)
+  expect(await ui.find({ type: 'Text', text: /what, why, how/ })).toBe(undefined)
+  expect(await ui.find({ type: 'Button', key: 'guide' })).not.toBe(undefined)
+  await ui.unmount()
+})
+
+test('layout follows the width and the height', () => {
+  expect(layoutOf(120, 10, false)).toBe('wide')
+  expect(layoutOf(80, 10, false)).toBe('medium')
+  expect(layoutOf(40, 10, false)).toBe('narrow')
+  expect(layoutOf(120, 3, false)).toBe('mini')
+  expect(layoutOf(120, 10, true)).toBe('mini')
+  expect(layoutOf(undefined, undefined, false)).toBe('wide')
+})
+
+test('progress lines are read in both languages and counted', () => {
+  const answer = 'Done.\n\n✓ Progress: comparison logic — next time you write the whole function.\n'
+    + '> ✓ تقدّم: التحقق من المدخلات — في المرة القادمة تكتب الشرط كله'
+  expect(progressIn(answer)).toEqual(['comparison logic', 'التحقق من المدخلات'])
+  expect(progressIn('✓ done, no colon here')).toEqual([])
+  const once = record([], ['comparison logic'])
+  expect(record(once, ['Comparison logic'])).toEqual([{ concept: 'Comparison logic', count: 2 }])
+})
+
+test('a wide bar draws dividers between the settings', async ($, on) => {
+  on('prompt.submit', (_, e) => ({ text: e.text }))
+
+  await $.prompt.submit(typed('/takemyhand make a game', { name: 'takemyhand', args: 'make a game' }))
+
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, bodyColumns: 120 }, surface: 'desktop' })
+  expect(await ui.find({ type: 'Text', text: '│' })).not.toBe(undefined)
+  expect((await ui.find({ type: 'Button', key: 'collapse' }))?.props.label).toBe('▾ Minimize')
   await ui.unmount()
 })

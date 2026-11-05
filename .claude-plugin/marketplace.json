@@ -15,7 +15,7 @@
       "name": "takemyhand-bar",
       "source": "./plugins/takemyhand-bar",
       "description": "Claude Code control panel for takemyhand: speed, depth, humor and quick tools as buttons above the prompt.",
-      "version": "0.1.1",
+      "version": "0.2.3",
       "license": "Apache-2.0"
     }
   ]

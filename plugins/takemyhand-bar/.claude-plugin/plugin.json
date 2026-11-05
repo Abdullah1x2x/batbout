@@ -1,6 +1,6 @@
 {
   "name": "takemyhand-bar",
-  "version": "0.1.1",
+  "version": "0.2.3",
   "description": "A control panel for the takemyhand skill in Claude Code: speed, depth, humor and quick tools as buttons above the prompt.",
   "author": { "name": "The takemyhand Authors" },
   "license": "Apache-2.0",
