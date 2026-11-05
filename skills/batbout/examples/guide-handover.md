@@ -34,7 +34,7 @@ def check(guess, secret):
     return "correct"
 ```
 
-**Batbout** *(reviewing — takemyhand-review)*:
+**Batbout** *(reviewing — batbout-review)*:
 
 Good: you covered all three cases, and the final `return "correct"` needs no extra `if`.
 

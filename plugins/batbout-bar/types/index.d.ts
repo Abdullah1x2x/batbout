@@ -15,6 +15,6 @@ export type BarSettings = {
 
 declare module 'claude-code' {
   interface PluginState {
-    'takemyhand-bar': { settings: BarSettings }
+    'batbout-bar': { settings: BarSettings }
   }
 }

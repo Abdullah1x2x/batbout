@@ -1,11 +1,11 @@
 ---
-name: takemyhand-review
-description: Review a learner's attempt at a piece of work handed over during a takemyhand session — code, a document section, a formula, a decision — with honest feedback, a graded hint ladder, and the stage decision. Use when the user submits an attempt for a TODO(you) marker or asks "is this right?" while learning.
+name: batbout-review
+description: Review a learner's attempt at a piece of work handed over during a batbout session — code, a document section, a formula, a decision — with honest feedback, a graded hint ladder, and the stage decision. Use when the user submits an attempt for a TODO(you) marker or asks "is this right?" while learning.
 ---
 
-# takemyhand-review — honest review of the learner's attempt
+# batbout-review — honest review of the learner's attempt
 
-Part of the `takemyhand` family. You are reviewing what the user did for a piece you handed over — code, a section of a document, a formula, a decision. Reply in the user's language (see the language rules in **takemyhand**: mirror their language, keep technical terms in their original form, gloss new terms once).
+Part of the `batbout` family. You are reviewing what the user did for a piece you handed over — code, a section of a document, a formula, a decision. Reply in the user's language (see the language rules in **batbout**: mirror their language, keep technical terms in their original form, gloss new terms once).
 
 ## 1. Read before you judge
 - Re-read the user's attempt in place: the diff, the file around the `TODO(you)` marker, or their answer in the chat.
@@ -30,7 +30,7 @@ When the attempt has a problem, climb one rung at a time:
 - Never jump past what they need: the goal is that *they* find it.
 
 ## 4. Decide the stage
-Decide it using the gradual-release rules in **takemyhand**; tell the user only an advance, as one progress line in plain words — stage names stay internal until the recap:
+Decide it using the gradual-release rules in **batbout**; tell the user only an advance, as one progress line in plain words — stage names stay internal until the recap:
 - Correct with **0–1 hint** → the concept **advances** one stage.
 - Needed **rung 2** → **holds** at its stage.
 - Needed **rung 3** → **steps back** one stage (never below stage 1; trivial-slip fixes don't count).

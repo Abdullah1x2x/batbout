@@ -6,13 +6,13 @@ import type { Depth, Lang, BarSettings, Progress, Speed } from '../types'
 const INITIAL: BarSettings = {
   isActive: false, isCollapsed: false, speed: 'watch', depth: 'normal', humor: true, lang: 'ar', progress: [],
 }
-const settings = atom({ plugin: 'takemyhand-bar', key: 'settings' } as const, INITIAL)
+const settings = atom({ plugin: 'batbout-bar', key: 'settings' } as const, INITIAL)
 // A value stored by 0.1.x lacks the newer fields; fill them from INITIAL
 const fill = (s: Partial<BarSettings> | undefined): BarSettings => ({ ...INITIAL, ...s })
 const edit = ($: Parameters<typeof read>[0], fn: (s: BarSettings) => BarSettings) =>
   update($, settings, s => fn(fill(s)))
 
-// The words the takemyhand skill already understands; a button sends the same word
+// The words the batbout skill already understands; a button sends the same word
 const WORDS = {
   watch: { ar: 'تفرّج', en: 'watch' },
   guide: { ar: 'خذ بيدي', en: 'guide me' },
@@ -32,6 +32,8 @@ type Word = keyof typeof WORDS
 
 const SPEEDS: readonly Speed[] = ['watch', 'guide', 'drive']
 const DEPTHS: readonly Depth[] = ['brief', 'normal', 'detailed']
+// The words that change a setting; the rest are tools that ask Batbout
+const SETTINGS: readonly Word[] = [...SPEEDS, ...DEPTHS, 'serious', 'jokesOn']
 // Glossary and help stay reachable by typing; the bar keeps only the frequent ones
 const ACTIONS = ['recap', 'quiz', 'debug'] as const
 
@@ -82,21 +84,42 @@ export const normalize = (text: string): string =>
 export const langOf = (text: string, fallback: Lang): Lang =>
   /[؀-ۿ]/.test(text) ? 'ar' : /[a-z]/i.test(text) ? 'en' : fallback
 
+// The one-word argument of `/batbout-bar <word>`; the key itself where it reads well
+const ARG: Partial<Record<Word, string>> = { jokesOn: 'jokes' }
+const argOf = (w: Word) => ARG[w] ?? w
+
+// Which control word a text is: its key, its /batbout-bar argument, or the word
+// in either language ("/batbout drive: …", "Detailed!", "خذ بيدي")
+export const wordOf = (text: string): Word | undefined => {
+  const said = normalize(text)
+  return (Object.keys(WORDS) as Word[]).find(w => said === w.toLowerCase() || said === argOf(w)
+    || said === normalize(WORDS[w].ar) || said === normalize(WORDS[w].en))
+}
+
 // The settings a typed message changes; an unrelated message changes nothing
 export const apply = (s: BarSettings, text: string): BarSettings => {
-  const said = normalize(text)
-  // The setting's own name counts too: "/takemyhand drive: …"
-  const is = (w: Word) => said === w.toLowerCase() || said === normalize(WORDS[w].ar) || said === normalize(WORDS[w].en)
-  const speed = SPEEDS.find(is)
-  const depth = DEPTHS.find(is)
-  if (speed) return { ...s, speed }
-  if (depth) return { ...s, depth }
-  if (is('serious')) return { ...s, humor: false }
-  if (is('jokesOn')) return { ...s, humor: true }
+  const w = wordOf(text)
+  if (w === undefined) return s
+  if ((SPEEDS as readonly Word[]).includes(w)) return { ...s, speed: w as Speed }
+  if ((DEPTHS as readonly Word[]).includes(w)) return { ...s, depth: w as Depth }
+  if (w === 'serious') return { ...s, humor: false }
+  if (w === 'jokesOn') return { ...s, humor: true }
   return s
 }
 
-// "/takemyhand guide: task" or "/takemyhand detailed: task" starts with that setting
+// What `/batbout-bar <setting>` prints, and the hidden note that tells the skill,
+// so a setting changes without starting a reply
+export const noteFor = (s: BarSettings): { text: string; context: string[] } => {
+  const humor = s.humor ? 'on' : 'off'
+  return {
+    text: `Speed: ${T[s.speed]} · Depth: ${T[s.depth]} · Humor: ${T[humor]}`,
+    context: [`[batbout-bar] The user changed Batbout's settings with the bar. Now: speed ${s.speed} `
+      + `("${WORDS[s.speed].en}"), depth ${s.depth}, humor ${humor}. Apply them from your next reply on; `
+      + `no reply is needed now.`],
+  }
+}
+
+// "/batbout guide: task" or "/batbout detailed: task" starts with that setting
 export const start = (s: BarSettings, args: string): BarSettings => {
   const head = args.split(':')[0] ?? ''
   const lang = langOf(args, s.lang)
@@ -120,18 +143,36 @@ export const record = (list: Progress[], concepts: string[]): Progress[] =>
     return [{ concept, count: (old?.count ?? 0) + 1 }, ...rest].slice(0, 8)
   }, list)
 
-const isSkill = (name: string) => /(^|:)takemyhand$/.test(name)
+const isSkill = (name: string) => /(^|:)batbout$/.test(name)
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     // Brings the bar back after it was hidden, without starting a new task
-    await $.command.register({ name: 'batbout', description: 'Show the takemyhand control bar' }).catch(() => undefined)
+    await $.command.register({
+      name: 'batbout-bar', description: 'Show the batbout bar, or change a setting quietly',
+      argumentHint: '[watch|guide|drive|brief|normal|detailed|serious|jokes]',
+    }).catch(() => undefined)
     return next(e)
   })
 
-  on('command.run', { command: 'batbout' }, async $ => {
-    await edit($, s => ({ ...s, isActive: true, isCollapsed: false }))
-    return { text: 'Batbout bar shown.' }
+  // `/batbout-bar` shows the bar; `/batbout-bar guide` (any setting word) changes a
+  // setting quietly; `/batbout-bar recap` (a tool) asks Batbout for it
+  on('command.run', { command: 'batbout-bar' }, async ($, e) => {
+    const w = wordOf(e.args)
+    if (e.args.trim() === '') {
+      await edit($, s => ({ ...s, isActive: true, isCollapsed: false }))
+      return { text: 'Batbout bar shown.' }
+    }
+    if (w === undefined) {
+      return { text: `Unknown setting "${e.args.trim()}". Try: ${(Object.keys(WORDS) as Word[]).map(argOf).join(', ')}` }
+    }
+    const s = fill(await read($, settings))
+    if (!SETTINGS.includes(w)) {
+      void $.prompt.submit({ text: WORDS[w][s.lang] })
+      return {}
+    }
+    await edit($, x => ({ ...apply(x, w), isActive: true }))
+    return noteFor(apply(s, w))
   })
 
   on('prompt.submit', async ($, e, next) => {
@@ -166,10 +207,14 @@ export const register: Register = on => {
     const isDesktop = e.surface === 'desktop'
     const layout = layoutOf(e.props.bodyColumns, e.props.maxRows, s.isCollapsed)
 
-    // Update first: the mod's own submission doesn't pass through its own hook
-    const send = async (w: Word, change: (s: BarSettings) => BarSettings = x => x) => {
-      await edit($, change)
-      void $.prompt.submit({ text: WORDS[w][s.lang] })
+    // A tool asks Batbout, so it sends the word as a message
+    const send = (w: Word) => void $.prompt.submit({ text: WORDS[w][s.lang] })
+    // A setting changes quietly through `/batbout-bar <word>`: lit at once here,
+    // the command (queued until the turn ends) prints it and tells the skill
+    const set = async (w: Word) => {
+      await edit($, x => apply(x, w))
+      // A refused run (a host limit) leaves the setting changed, only unannounced
+      void $.command.run({ command: 'batbout-bar', args: argOf(w) }).catch(() => undefined)
     }
 
     // A segmented control: the chosen option sits on a light duck-coloured
@@ -192,10 +237,10 @@ export const register: Register = on => {
 
     const humor = s.humor ? 'on' : 'off'
     const setHumor = (isOn: boolean) => () => {
-      if (isOn !== s.humor) void send(isOn ? 'jokesOn' : 'serious', x => ({ ...x, humor: isOn }))
+      if (isOn !== s.humor) void set(isOn ? 'jokesOn' : 'serious')
     }
-    const speeds = SPEEDS.map(v => option(v, t[v], s.speed === v, () => send(v, x => ({ ...x, speed: v }))))
-    const depths = DEPTHS.map(v => option(v, t[v], s.depth === v, () => send(v, x => ({ ...x, depth: v }))))
+    const speeds = SPEEDS.map(v => option(v, t[v], s.speed === v, () => set(v)))
+    const depths = DEPTHS.map(v => option(v, t[v], s.depth === v, () => set(v)))
     const humors = [
       option('humorOn', t.on, s.humor, setHumor(true)),
       option('humorOff', t.off, !s.humor, setHumor(false)),

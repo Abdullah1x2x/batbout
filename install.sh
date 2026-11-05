@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# takemyhand installer — macOS / Linux
+# batbout installer — macOS / Linux
 # Licensed under the Apache License, Version 2.0. See LICENSE.
 #
-#   curl -fsSL https://raw.githubusercontent.com/Abdullah1x2x/takemyhand/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/Abdullah1x2x/batbout/main/install.sh | bash
 #   curl -fsSL .../install.sh | bash -s -- --agent claude-code,cursor
 #   curl -fsSL .../install.sh | bash -s -- --all
 #
@@ -12,15 +12,17 @@
 #   --all             install for every supported agent, detected or not
 #   --project         install into the current project instead of your home folder
 #   --link            link to this checkout instead of copying (for developing the skills)
-#   --uninstall       remove takemyhand skills from the selected agents
+#   --uninstall       remove batbout skills from the selected agents
 #   --list            show supported agents and whether they were detected
 #   -h, --help        show this help
 
 set -euo pipefail
 
-REPO="${TAKEMYHAND_REPO:-Abdullah1x2x/takemyhand}"
-REF="${TAKEMYHAND_REF:-main}"
-SKILLS=(takemyhand takemyhand-review takemyhand-recap)
+REPO="${BATBOUT_REPO:-Abdullah1x2x/batbout}"
+REF="${BATBOUT_REF:-main}"
+SKILLS=(batbout batbout-review batbout-recap)
+# The names before the rename to Batbout, removed so they don't run twice
+LEGACY=(takemyhand takemyhand-review takemyhand-recap)
 
 # id | global skills dir | project skills dir | detection dir
 AGENTS=(
@@ -48,14 +50,14 @@ MODE=detected; SELECTED=""; PROJECT=0; UNINSTALL=0; LIST=0; LINK=0
 
 usage() {
   cat <<'EOF'
-takemyhand installer
+batbout installer
 
   install.sh                    install for every agent detected here (+ ~/.agents/skills)
   install.sh --agent a,b,...    install only for these agents (see --list)
   install.sh --all              install for every supported agent
   install.sh --project          install into the current project instead of your home folder
   install.sh --link             link to this checkout instead of copying (run from a clone)
-  install.sh --uninstall        remove takemyhand from the selected agents
+  install.sh --uninstall        remove batbout from the selected agents
   install.sh --list             show supported agents and whether they were detected
 EOF
 }
@@ -124,7 +126,7 @@ fi
 
 if [ "$UNINSTALL" = 1 ]; then
   for i in "${!TARGETS[@]}"; do
-    for s in "${SKILLS[@]}"; do rm -rf "${TARGETS[$i]:?}/$s"; done
+    for s in "${SKILLS[@]}" "${LEGACY[@]}"; do rm -rf "${TARGETS[$i]:?}/$s"; done
     echo "✓ removed from ${TARGETS[$i]}  (${LABELS[$i]})"
   done
   exit 0
@@ -133,7 +135,7 @@ fi
 # Find the skills: local checkout first, otherwise download the repo
 SRC=""
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || true)"
-if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/skills/takemyhand/SKILL.md" ]; then
+if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/skills/batbout/SKILL.md" ]; then
   SRC="$SCRIPT_DIR/skills"
 else
   [ "$LINK" = 0 ] || { echo "--link needs a local clone: run ./install.sh --link from the repo." >&2; exit 1; }
@@ -142,11 +144,12 @@ else
   echo "Downloading $REPO@$REF ..."
   curl -fsSL "https://codeload.github.com/$REPO/tar.gz/refs/heads/$REF" | tar -xz -C "$TMP"
   SRC="$(find "$TMP" -maxdepth 2 -type d -name skills | head -1)"
-  [ -f "$SRC/takemyhand/SKILL.md" ] || { echo "Could not find skills in the download." >&2; exit 1; }
+  [ -f "$SRC/batbout/SKILL.md" ] || { echo "Could not find skills in the download." >&2; exit 1; }
 fi
 
 for i in "${!TARGETS[@]}"; do
   mkdir -p "${TARGETS[$i]}"
+  for s in "${LEGACY[@]}"; do rm -rf "${TARGETS[$i]:?}/$s"; done
   for s in "${SKILLS[@]}"; do
     rm -rf "${TARGETS[$i]:?}/$s"
     if [ "$LINK" = 1 ]; then ln -s "$SRC/$s" "${TARGETS[$i]}/$s"; else cp -R "$SRC/$s" "${TARGETS[$i]}/$s"; fi
@@ -155,5 +158,5 @@ for i in "${!TARGETS[@]}"; do
 done
 
 echo
-echo "takemyhand installed. Ask your agent to \"use takemyhand\" (Claude Code: /takemyhand <task>)."
+echo "batbout installed. Ask your agent to \"use batbout\" (Claude Code: /batbout <task>)."
 echo "Restart your agent if it was already running."

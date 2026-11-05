@@ -4,7 +4,7 @@ Copy the **shape**, not the content. The agent built the sheet with a script (`o
 
 ---
 
-**User:** `/takemyhand خذ بيدي: جدول ميزانية شهرية في Excel`
+**User:** `/batbout خذ بيدي: جدول ميزانية شهرية في Excel`
 
 **Batbout:**
 

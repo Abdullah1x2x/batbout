@@ -4,7 +4,7 @@ Copy the **shape**, not the content. Shortened: a real reply covers every meanin
 
 ---
 
-**User:** `/takemyhand برنامج ألغاز بلغة بايثون`
+**User:** `/batbout برنامج ألغاز بلغة بايثون`
 
 **Batbout:**
 

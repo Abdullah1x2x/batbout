@@ -1,11 +1,11 @@
 ---
-name: takemyhand-recap
-description: Close a takemyhand learning session in the user's language — what was done, key lessons, the stage each concept reached, a bilingual glossary, an optional teach-back, and one next exercise. Use at the end of a takemyhand task or when the user asks for a recap, glossary, or "quiz me".
+name: batbout-recap
+description: Close a batbout learning session in the user's language — what was done, key lessons, the stage each concept reached, a bilingual glossary, an optional teach-back, and one next exercise. Use at the end of a batbout task or when the user asks for a recap, glossary, or "quiz me".
 ---
 
-# takemyhand-recap — lock in what was learned
+# batbout-recap — lock in what was learned
 
-Part of the `takemyhand` family. Write everything in the user's language (see the language rules in **takemyhand**), keeping code and technical terms in their original form.
+Part of the `batbout` family. Write everything in the user's language (see the language rules in **batbout**), keeping code and technical terms in their original form.
 
 ## 1. The recap
 Keep it short and scannable. Section labels in the user's language:

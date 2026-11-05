@@ -1,8 +1,8 @@
 import { expect, test } from 'claude-code/testing'
-import { layoutOf, progressIn, record } from './register'
+import { layoutOf, noteFor, progressIn, record, wordOf } from './register'
 
 const BAND = {
-  plugin: 'takemyhand-bar',
+  plugin: 'batbout-bar',
   component: 'AbovePrompt',
   props: { hasSurvey: false, isWorking: false, maxRows: 10, bodyColumns: 80, scroll: { offset: 0, bodyRows: 10 }, view: {} },
 } as const
@@ -12,7 +12,7 @@ const typed = (text: string, command?: { name: string; args: string }) => ({
   text, wait: false, origin: { kind: 'composer' } as const, ...(command ? { command } : {}),
 })
 
-test('the bar stays hidden until /takemyhand runs', async ($, on) => {
+test('the bar stays hidden until /batbout runs', async ($, on) => {
   on('ui.render', ($, e) => {
     const { Text } = $.ui.resolve(e)
     return <Text>engine</Text>
@@ -23,10 +23,10 @@ test('the bar stays hidden until /takemyhand runs', async ($, on) => {
   await ui.unmount()
 })
 
-test('/takemyhand shows the bar with English labels, on every surface', async ($, on) => {
+test('/batbout shows the bar with English labels, on every surface', async ($, on) => {
   on('prompt.submit', (_, e) => ({ text: e.text }))
 
-  await $.prompt.submit(typed('/takemyhand برنامج ألغاز', { name: 'takemyhand', args: 'برنامج ألغاز' }))
+  await $.prompt.submit(typed('/batbout برنامج ألغاز', { name: 'batbout', args: 'برنامج ألغاز' }))
 
   for (const surface of ['terminal', 'desktop', 'vscode', 'mobile'] as const) {
     const ui = await $.ui.mount({ ...BAND, surface })
@@ -39,7 +39,7 @@ test('/takemyhand shows the bar with English labels, on every surface', async ($
 test('a typed control word lights its button', async ($, on) => {
   on('prompt.submit', (_, e) => ({ text: e.text }))
 
-  await $.prompt.submit(typed('/takemyhand make a game', { name: 'takemyhand', args: 'make a game' }))
+  await $.prompt.submit(typed('/batbout make a game', { name: 'batbout', args: 'make a game' }))
   await $.prompt.submit(typed('Detailed!'))
 
   const ui = await $.ui.mount({ ...BAND, surface: 'desktop' })
@@ -48,7 +48,7 @@ test('a typed control word lights its button', async ($, on) => {
   await ui.unmount()
 })
 
-test('a button sends its word and lights itself; close hides the bar', async ($, on) => {
+test('a setting lights at once and sends no message; a tool sends its word; close hides the bar', async ($, on) => {
   const sent: string[] = []
   on('prompt.submit', (_, e) => {
     sent.push(e.text)
@@ -60,14 +60,17 @@ test('a button sends its word and lights itself; close hides the bar', async ($,
     return <Text>engine</Text>
   })
 
-  await $.prompt.submit(typed('/takemyhand drive: add a login form', { name: 'takemyhand', args: 'drive: add a login form' }))
+  await $.prompt.submit(typed('/batbout drive: add a login form', { name: 'batbout', args: 'drive: add a login form' }))
 
   const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
   expect((await ui.find({ type: 'Button', key: 'drive' }))?.props.dimColor).toBe(undefined)
 
+  const before = sent.length
   await ui.press({ key: 'guide' })
-  expect(sent.at(-1)).toBe('guide me')
+  expect(sent.length).toBe(before)
   expect((await ui.find({ type: 'Button', key: 'guide' }))?.props.dimColor).toBe(undefined)
+  await ui.press({ key: 'recap' })
+  expect(sent.at(-1)).toBe('recap')
 
   await ui.press({ key: 'close' })
   expect(await ui.find({ type: 'Button', key: 'guide' })).toBe(undefined)
@@ -75,34 +78,34 @@ test('a button sends its word and lights itself; close hides the bar', async ($,
   await ui.unmount()
 })
 
-test('in an Arabic session a press sends the Arabic word', async ($, on) => {
+test('in an Arabic session a tool sends the Arabic word', async ($, on) => {
   const sent: string[] = []
   on('prompt.submit', (_, e) => {
     sent.push(e.text)
     return { text: e.text }
   })
 
-  await $.prompt.submit(typed('/takemyhand برنامج ألغاز', { name: 'takemyhand', args: 'برنامج ألغاز' }))
+  await $.prompt.submit(typed('/batbout برنامج ألغاز', { name: 'batbout', args: 'برنامج ألغاز' }))
 
   const ui = await $.ui.mount({ ...BAND, surface: 'desktop' })
-  await ui.press({ key: 'detailed' })
-  expect(sent.at(-1)).toBe('بالتفصيل')
+  await ui.press({ key: 'quiz' })
+  expect(sent.at(-1)).toBe('اختبرني')
   await ui.unmount()
 })
 
-test('humor Off sends the serious word; the logo is an SVG on desktop', async ($, on) => {
+test('humor Off lights without a message; the logo is an SVG on desktop', async ($, on) => {
   const sent: string[] = []
   on('prompt.submit', (_, e) => {
     sent.push(e.text)
     return { text: e.text }
   })
 
-  await $.prompt.submit(typed('/takemyhand make a game', { name: 'takemyhand', args: 'make a game' }))
+  await $.prompt.submit(typed('/batbout make a game', { name: 'batbout', args: 'make a game' }))
 
   const ui = await $.ui.mount({ ...BAND, surface: 'desktop' })
   expect(await ui.find({ type: 'Svg' })).not.toBe(undefined)
   await ui.press({ key: 'humorOff' })
-  expect(sent.at(-1)).toBe('serious')
+  expect(sent.at(-1)).toBe('/batbout make a game')
   expect((await ui.find({ type: 'Button', key: 'humorOff' }))?.props.dimColor).toBe(undefined)
   await ui.unmount()
 })
@@ -110,7 +113,7 @@ test('humor Off sends the serious word; the logo is an SVG on desktop', async ($
 test('collapse shrinks the bar to one row; open brings it back', async ($, on) => {
   on('prompt.submit', (_, e) => ({ text: e.text }))
 
-  await $.prompt.submit(typed('/takemyhand make a game', { name: 'takemyhand', args: 'make a game' }))
+  await $.prompt.submit(typed('/batbout make a game', { name: 'batbout', args: 'make a game' }))
 
   const ui = await $.ui.mount({ ...BAND, surface: 'desktop' })
   await ui.press({ key: 'collapse' })
@@ -124,7 +127,7 @@ test('collapse shrinks the bar to one row; open brings it back', async ($, on) =
 test('a narrow bar keeps its shape: tool names and dividers stay, meanings go', async ($, on) => {
   on('prompt.submit', (_, e) => ({ text: e.text }))
 
-  await $.prompt.submit(typed('/takemyhand make a game', { name: 'takemyhand', args: 'make a game' }))
+  await $.prompt.submit(typed('/batbout make a game', { name: 'batbout', args: 'make a game' }))
 
   const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, bodyColumns: 50 }, surface: 'terminal' })
   expect((await ui.find({ type: 'Button', key: 'recap' }))?.props.label).toBe('≡ Recap')
@@ -155,10 +158,20 @@ test('progress lines are read in both languages and counted', () => {
 test('a wide bar draws dividers between the settings', async ($, on) => {
   on('prompt.submit', (_, e) => ({ text: e.text }))
 
-  await $.prompt.submit(typed('/takemyhand make a game', { name: 'takemyhand', args: 'make a game' }))
+  await $.prompt.submit(typed('/batbout make a game', { name: 'batbout', args: 'make a game' }))
 
   const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, bodyColumns: 120 }, surface: 'desktop' })
   expect(await ui.find({ type: 'Text', text: '│' })).not.toBe(undefined)
   expect((await ui.find({ type: 'Button', key: 'collapse' }))?.props.label).toBe('▾ Minimize')
   await ui.unmount()
+})
+
+test('/batbout-bar words are read in any form; the note names the new settings', () => {
+  expect(wordOf('jokes')).toBe('jokesOn')
+  expect(wordOf('Guide')).toBe('guide')
+  expect(wordOf('خذ بيدي')).toBe('guide')
+  expect(wordOf('hello')).toBe(undefined)
+  const note = noteFor({ isActive: true, isCollapsed: false, speed: 'guide', depth: 'brief', humor: false, lang: 'ar', progress: [] })
+  expect(note.text).toBe('Speed: Guide · Depth: Brief · Humor: Off')
+  expect(note.context[0]).toContain('speed guide')
 })

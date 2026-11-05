@@ -4,7 +4,7 @@ Copy the **shape**, not the content. Nothing is built: "how" is a worked example
 
 ---
 
-**User:** `/takemyhand علّمني أحل معادلة من الدرجة الأولى`
+**User:** `/batbout علّمني أحل معادلة من الدرجة الأولى`
 
 **Batbout:**
 
@@ -56,5 +56,5 @@ Copy the **shape**, not the content. Nothing is built: "how" is a worked example
 - No code and no app: "how" is a worked example, with the rule named at every step.
 - Maths lines on their own lines, outside code blocks, so right-to-left text stays readable.
 - The check by substitution is taught as the field's habit, not an extra.
-- A similar problem for the user to try, its answer hidden; their steps would go to takemyhand-review.
+- A similar problem for the user to try, its answer hidden; their steps would go to batbout-review.
 - The duck analogy (a seesaw) teaches the key idea: do the same to both sides.

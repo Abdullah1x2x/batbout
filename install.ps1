@@ -1,10 +1,10 @@
-# takemyhand installer — Windows (PowerShell 5.1+ / PowerShell 7)
+# batbout installer — Windows (PowerShell 5.1+ / PowerShell 7)
 # Licensed under the Apache License, Version 2.0. See LICENSE.
 #
-#   irm https://raw.githubusercontent.com/Abdullah1x2x/takemyhand/main/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/Abdullah1x2x/batbout/main/install.ps1 | iex
 #
 # With options (download first, then run):
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/Abdullah1x2x/takemyhand/main/install.ps1))) -Agent claude-code,cursor
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/Abdullah1x2x/batbout/main/install.ps1))) -Agent claude-code,cursor
 #   ... -All | -Project | -Uninstall | -List | -Link (from a local clone: link instead of copy)
 
 [CmdletBinding()]
@@ -18,9 +18,11 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$Repo   = if ($env:TAKEMYHAND_REPO) { $env:TAKEMYHAND_REPO } else { 'Abdullah1x2x/takemyhand' }
-$Ref    = if ($env:TAKEMYHAND_REF)  { $env:TAKEMYHAND_REF }  else { 'main' }
-$Skills = @('takemyhand', 'takemyhand-review', 'takemyhand-recap')
+$Repo   = if ($env:BATBOUT_REPO) { $env:BATBOUT_REPO } else { 'Abdullah1x2x/batbout' }
+$Ref    = if ($env:BATBOUT_REF)  { $env:BATBOUT_REF }  else { 'main' }
+$Skills = @('batbout', 'batbout-review', 'batbout-recap')
+# The names before the rename to Batbout, removed so they don't run twice
+$Legacy = @('takemyhand', 'takemyhand-review', 'takemyhand-recap')
 $H      = $HOME
 
 # id, global skills dir, project skills dir, detection dir
@@ -80,7 +82,7 @@ if ($Targets.Count -eq 0) { throw 'No matching agents found. Use -List to see th
 
 if ($Uninstall) {
   foreach ($dir in $Targets.Keys) {
-    foreach ($s in $Skills) { Remove-Skill (Join-Path $dir $s) }
+    foreach ($s in $Skills + $Legacy) { Remove-Skill (Join-Path $dir $s) }
     Write-Host "✓ removed from $dir  ($($Targets[$dir]))"
   }
   return
@@ -88,11 +90,11 @@ if ($Uninstall) {
 
 # Find the skills: local checkout first, otherwise download the repo
 $Src = $null
-if ($PSScriptRoot -and (Test-Path (Join-Path $PSScriptRoot 'skills\takemyhand\SKILL.md'))) {
+if ($PSScriptRoot -and (Test-Path (Join-Path $PSScriptRoot 'skills\batbout\SKILL.md'))) {
   $Src = Join-Path $PSScriptRoot 'skills'
 } else {
   if ($Link) { throw '-Link needs a local clone: run .\install.ps1 -Link from the repo.' }
-  $Tmp = Join-Path ([IO.Path]::GetTempPath()) ("takemyhand-" + [guid]::NewGuid())
+  $Tmp = Join-Path ([IO.Path]::GetTempPath()) ("batbout-" + [guid]::NewGuid())
   New-Item -ItemType Directory -Path $Tmp | Out-Null
   $Zip = Join-Path $Tmp 'repo.zip'
   Write-Host "Downloading $Repo@$Ref ..."
@@ -100,13 +102,14 @@ if ($PSScriptRoot -and (Test-Path (Join-Path $PSScriptRoot 'skills\takemyhand\SK
   Invoke-WebRequest -UseBasicParsing -Uri "https://codeload.github.com/$Repo/zip/refs/heads/$Ref" -OutFile $Zip
   Expand-Archive -LiteralPath $Zip -DestinationPath $Tmp -Force
   $Src = Get-ChildItem -LiteralPath $Tmp -Directory | ForEach-Object { Join-Path $_.FullName 'skills' } |
-         Where-Object { Test-Path (Join-Path $_ 'takemyhand\SKILL.md') } | Select-Object -First 1
+         Where-Object { Test-Path (Join-Path $_ 'batbout\SKILL.md') } | Select-Object -First 1
   if (-not $Src) { throw 'Could not find skills in the download.' }
 }
 
 try {
   foreach ($dir in $Targets.Keys) {
     New-Item -ItemType Directory -Path $dir -Force | Out-Null
+    foreach ($s in $Legacy) { Remove-Skill (Join-Path $dir $s) }
     foreach ($s in $Skills) {
       $dest = Join-Path $dir $s
       Remove-Skill $dest
@@ -120,5 +123,5 @@ try {
 }
 
 Write-Host ''
-Write-Host 'takemyhand installed. Ask your agent to "use takemyhand" (Claude Code: /takemyhand <task>).'
+Write-Host 'batbout installed. Ask your agent to "use batbout" (Claude Code: /batbout <task>).'
 Write-Host 'Restart your agent if it was already running.'

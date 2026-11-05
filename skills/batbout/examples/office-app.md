@@ -4,7 +4,7 @@ Copy the **shape**, not the content. The agent may build the file with a script;
 
 ---
 
-**User:** `/takemyhand اعمل لي ملف وورد عن الفضاء`
+**User:** `/batbout اعمل لي ملف وورد عن الفضاء`
 
 **Batbout:**
 

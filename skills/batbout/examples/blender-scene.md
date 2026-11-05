@@ -4,7 +4,7 @@ Copy the **shape**, not the content. The agent built the scene with a Python scr
 
 ---
 
-**User:** `/takemyhand make me a Blender scene: a row of 10 cubes on a floor, with a light and a camera`
+**User:** `/batbout make me a Blender scene: a row of 10 cubes on a floor, with a light and a camera`
 
 **Batbout:**
 
