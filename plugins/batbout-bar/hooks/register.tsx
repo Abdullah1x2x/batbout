@@ -144,6 +144,7 @@ export const record = (list: Progress[], concepts: string[]): Progress[] =>
   }, list)
 
 const isSkill = (name: string) => /(^|:)batbout$/.test(name)
+const isBarCommand = (name: string) => /(^|:)batbout-bar$/.test(name)
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
@@ -157,7 +158,10 @@ export const register: Register = on => {
 
   // `/batbout-bar` shows the bar; `/batbout-bar guide` (any setting word) changes a
   // setting quietly; `/batbout-bar recap` (a tool) asks Batbout for it
-  on('command.run', { command: 'batbout-bar' }, async ($, e) => {
+  // The registered name can come back prefixed (`<plugin>:batbout-bar`), so match
+  // any form of it here rather than one exact name in the matcher
+  on('command.run', async ($, e, next) => {
+    if (!isBarCommand(e.command)) return next(e)
     const w = wordOf(e.args)
     if (e.args.trim() === '') {
       await edit($, s => ({ ...s, isActive: true, isCollapsed: false }))

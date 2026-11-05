@@ -175,3 +175,21 @@ test('/batbout-bar words are read in any form; the note names the new settings',
   expect(note.text).toBe('Speed: Guide · Depth: Brief · Humor: Off')
   expect(note.context[0]).toContain('speed guide')
 })
+
+// A slash command as the person types it
+const ran = (command: string, args: string) => ({
+  command, args, origin: { kind: 'composer' } as const, presentation: { isFullscreen: false, columns: 80 },
+})
+
+test('/batbout-bar guide answers with the new settings', async ($, on) => {
+  on('command.register', () => ({ value: { command: 'batbout-bar' } }))
+  on('session.start', (_, e) => ({ cwd: e.cwd }))
+  await $.session.start({ cwd: '/', surface: 'desktop', isInteractive: true })
+
+  const out = await $.command.run(ran('batbout-bar', 'guide'))
+  expect(out.text).toMatch(/Guide/)
+  const prefixed = await $.command.run(ran('batbout-bar:batbout-bar', 'drive'))
+  expect(prefixed.text).toMatch(/Drive/)
+  const shown = await $.command.run(ran('batbout-bar', ''))
+  expect(shown.text).toBe('Batbout bar shown.')
+})
