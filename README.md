@@ -49,6 +49,13 @@ Before the first step the agent names the subject of your task — machine learn
 
 The level sets how deep the expert goes: key decisions only (**brief**), every step (**normal**), or also the concepts and the field's alternatives (**detailed**).
 
+### Teaching that sticks
+
+- **Fits your level.** Batbout reads your level in the subject — new, some experience, experienced — from how you write and what you share, asks once only if it's unclear, and keeps adjusting: plain words and analogies for newcomers, trade-offs and edge cases for experts.
+- **Keeps you thinking.** A one-line goal at the start, a quick "predict what happens" question every few steps (answer hidden, so nothing stops), and — in watch — one offer to take the wheel.
+- **No repeats.** Each concept is explained fully once; later it gets one line.
+- **Honest about limits.** Says "I'm not sure" and checks instead of guessing, separates facts from conventions and preferences, and in health, law, money and security teaches the concepts while pointing you to authoritative sources.
+
 ### 1. Speeds — who does the work
 
 | Word (any language) | Who does the work | What the agent does |
@@ -302,6 +309,10 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 - **بطبوط 🦆**: معلّمك اسمه بطبوط، بطّة صغيرة مرحة ومعلّم ممتاز. أسلوبه طريف افتراضياً: نكتة أو تشبيه مضحك في كل خطوة، على الموقف أو الكود وليس عليك، ولا يأتي على حساب الشرح. يتوقف المزح تلقائياً مع التحذيرات والأخطاء الحقيقية، وتطفئه بكلمة «بجدية» وتعيده بـ«رجّع المزح».
 - **أي مهمة**: برنامج، ملف PDF أو Word، جدول بيانات، تحليل، تقرير، عرض تقديمي، أو كتابة.
+- **يناسب مستواك**: يقدّر بطبوط مستواك في الموضوع (مبتدئ، لديك خبرة، محترف) من طريقة كتابتك، ويسألك مرة واحدة فقط إذا لم يكن واضحاً، ويعدّل شرحه طوال الجلسة.
+- **يجعلك تفكر**: هدف واضح في البداية، وسؤال «توقّع ماذا سيحدث» كل بضع خطوات (والجواب مخفي حتى لا يتوقف العمل)، وفي «تفرّج» يعرض عليك مرة واحدة أن تجرّب بنفسك.
+- **بلا تكرار**: يشرح كل مفهوم بالكامل مرة واحدة، وبعدها يكتفي بسطر.
+- **صادق في حدود معرفته**: يقول «لست متأكداً» ويتحقق بدل أن يخمّن، ويفرّق بين الحقيقة والعُرف والرأي، وفي الصحة والقانون والمال والأمن يشرح المفاهيم ويوجّهك للمصادر الموثوقة.
 - **معلّم خبير في موضوعك**: يحدد الوكيل موضوع المهمة (تعلّم الآلة، تطوير الويب، تصميم المستندات…) ويعلّمك كخبير في هذا المجال: مصطلحاته، وممارساته المعتمدة، وأخطاء المبتدئين فيه. في «تفرّج» يعرض كيف يعمل الخبير، وفي «خذ بيدي» يدرّبك على قرارات المجال الأساسية، وفي «سوقني» يراجع عملك بمعايير المجال. ويتغيّر الدور إذا تغيّر الموضوع.
 - **السرعات**: تبدأ الجلسة على «تفرّج»: ينفّذ الوكيل كل شيء ويشرح. في «خذ بيدي» ينفّذ جزءاً وتنفّذ أنت الأجزاء المهمة، وفي «سوقني» تنفّذ أنت أغلب العمل والوكيل يخطط ويراجع ويلمّح.
 - **مستويات الشرح**: «باختصار» للخطوات المهمة فقط، و«عادي» (الافتراضي) لكل خطوة مهمة، و«بالتفصيل» لكل جزء وكل قرار والبدائل، ويختار الوكيل لكل خطوة طريقة الشرح الأنسب لموضوعها: مثال بأرقام حقيقية للمعادلة، وجدول بدائل للقرار، وتشبيه للفكرة الجديدة، وشرح سطر سطر للكود الكثيف، وسؤال لاختبار الفهم، وغيرها. المستوى مستقل عن السرعة.
