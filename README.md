@@ -1,5 +1,7 @@
 # takemyhand
 
+[العربية](README.ar.md)
+
 **Mentor mode for AI agents, in any language, for any task.** The agent does your task — code, documents, data, reports — *and* teaches you — then gradually hands the work over to you as you prove you understand it.
 
 > I do → we do → you do
@@ -17,13 +19,13 @@ Most "learning mode" skills either explain everything or make you write fixed pi
 | **Three speeds, one word** | `watch` · `guide` · `drive` — recognised in any language | One mode, or a lock you turn on/off |
 | **Zero setup** | No tracking files, no scripts, no dependencies; works in chat apps and coding agents | Often needs profile files, dashboards, or a CLI |
 | **Honest reviews** | A 3-rung hint ladder; never praises wrong work | Varies |
-| **Any task, not just code** | Explains every step — what, why, how — for programs, PDFs, spreadsheets, reports; three explanation levels | Usually code only |
+| **Any task, not just code** | Explains every step — what, why, how — for programs, PDFs, spreadsheets, reports; three depths of explanation | Usually code only |
 
 ## The skills
 
 | Skill | Role |
 |---|---|
-| `takemyhand` | The session conductor: language, speeds, explanation levels, step-by-step explanations, gradual release, hand-overs. Start here. |
+| `takemyhand` | The session conductor: language, speeds, depths, step-by-step explanations, gradual release, hand-overs. Start here. |
 | `takemyhand-review` | Reviews your attempt at a handed-over piece: what's right, what's wrong, hint ladder, stage decision. |
 | `takemyhand-recap` | Ends the session: lessons, stage per concept, bilingual glossary, optional teach-back, "quiz me", next exercise. |
 
@@ -35,7 +37,7 @@ The agent runs every part of a session for you; you only steer with plain words.
 
 ### Meet Batbout 🦆
 
-Your teacher has a name: **Batbout** (`بطبوط`, "little duckling") — a small, cheerful duck who happens to be a great teacher, and a nod to *rubber duck debugging*. Batbout plays the duck: every duck line opens with "Quack!", pond-and-bread-crumb analogies, and mock offence at messy indentation. Batbout is funny by default: one joke or funny analogy per step, in your language, about the situation or the code — never about you — and never at the cost of the explanation. Humor steps aside on its own for security warnings, real errors and moments when you're stuck or in a hurry. Say **serious** (`بجدية`) to turn it off, **jokes on** (`رجّع المزح`) to bring it back.
+Your teacher has a name: **Batbout** (`بطبوط`, "little duckling") — a small, cheerful duck who happens to be a great teacher, and a nod to *rubber duck debugging*. Batbout plays the duck: every duck line opens with "Quack!", pond-and-bread-crumb analogies, and mock offence at messy indentation (never at yours). With experienced learners the duck is lighter and drier. Batbout is funny by default: one joke or funny analogy per step, in your language, about the situation or the code — never about you — and never at the cost of the explanation. Humor steps aside on its own for security warnings, real errors and moments when you're stuck or in a hurry. Say **serious** (`بجدية`) to turn it off — jokes, "Quack!" and all — **jokes on** (`رجّع المزح`) to bring it back.
 
 ### 0. The expert teacher — chosen for your subject
 
@@ -47,7 +49,7 @@ Before the first step the agent names the subject of your task — machine learn
 | **guide** | coaches — hands you the decisions the field considers essential |
 | **drive** | reviews — judges your work by the field's standards |
 
-The level sets how deep the expert goes: key decisions only (**brief**), every step (**normal**), or also the concepts and the field's alternatives (**detailed**).
+The depth sets how far the expert goes: key decisions only (**brief**), every step (**normal**), or also the concepts and the field's alternatives (**detailed**).
 
 ### Teaching that sticks
 
@@ -66,9 +68,9 @@ The level sets how deep the expert goes: key decisions only (**brief**), every s
 
 The session starts in **watch**. Switching takes effect immediately.
 
-### 2. Explanation levels — how much the agent explains
+### 2. Depth — how much the agent explains
 
-Independent of the speed: any speed works with any level.
+Independent of the speed: any speed works with any depth. (Your *level* — new, some experience, experienced — is separate: Batbout reads it from you.)
 
 | Word (any language) | What the agent explains |
 |---|---|
@@ -76,11 +78,18 @@ Independent of the speed: any speed works with any level.
 | **normal** · عادي *(default)* | Every meaningful step: what, why, how |
 | **detailed** · بالتفصيل | Every part: each function or section, each decision, the rejected alternatives and the concepts behind them — each step taught with the methods that suit it |
 
-At the start Batbout introduces itself with its expert role, the current speed and the level in one line — e.g. *🦆 Batbout, your machine-learning expert · Speed: watch · Level: normal* — and the words that change them.
+Every task opens with a short session card — the expert role for this task, the settings in plain words, Batbout's guess at your level (correct it if it's wrong), and what you'll learn:
+
+> 🦆 **Batbout** · Python game-programming expert
+> ⚙️ I build, you watch · normal explanations · your level: new (my guess)
+> 🎯 You'll learn: storing questions with answers, and checking answers flexibly
+> _Change anything with a word, or type **commands**._
+
+If your task could mean two things, it asks one short question first.
 
 ### 3. Step by step — what, why, how
 
-takemyhand works for **any task**: code, PDF or Word documents, spreadsheets, data analysis, reports, slides, writing. After each step the agent explains it, in your language, before moving on:
+takemyhand works for **any task**: code, PDF or Word documents, spreadsheets, data analysis, reports, slides, writing. Every answer opens with the result — what was made and how to run or open it — and shows the work itself in the chat (the code under each step), saved where you can open it. After each step the agent explains it, in your language, before moving on:
 
 > **★ Step: build the report's table of contents**
 > - **What:** generated the PDF with three sections and a contents page.
@@ -91,14 +100,14 @@ The block is a quote, not a code block, so it follows your text direction — ri
 
 What gets explained depends on the work:
 
-| Work | At normal level, the agent explains |
+| Work | At normal depth, the agent explains |
 |---|---|
 | **Code** | Each function, class or component: what it does, why it exists, how it fits with the rest |
 | **Documents, PDFs, slides** | The structure and why, the tool or library and why, the steps to produce the file |
 | **Spreadsheets, data** | Each formula, transformation or chart: what it computes, why, how to read it |
 | **Writing, reports** | The outline, the tone, and the key choices in each section |
 
-At **detailed** level the agent drops the fixed block and picks, for each step, the 2–3 teaching methods that suit that topic — a worked example with real numbers for a formula, an alternatives table for a design choice, an analogy for a new idea, a line-by-line walk-through for dense code, "what breaks without it", an input → output trace, a check-your-understanding question, and more. The methods change as the topics change, and simple code is shown whole rather than walked through line by line.
+At **detailed** depth the agent drops the fixed block and picks, for each step, the 2–3 teaching methods that suit that topic — a worked example with real numbers for a formula, an alternatives table for a design choice, an analogy for a new idea, a line-by-line walk-through for dense code, "what breaks without it", an input → output trace, a check-your-understanding question, and more. The methods change as the topics change, and simple code is shown whole rather than walked through line by line.
 
 When a piece of work is finished, the agent adds a short **map** of its parts (functions, sections, sheets) with one line each on what the part is for.
 
@@ -121,6 +130,8 @@ How a concept moves:
 | Needed the full solution | **Steps back** one stage (never below stage 1) |
 
 **watch** keeps every concept at stage 1. **drive** starts every new concept at stage 2. So you can be at "you do" for validation and at "I do" for async code in the same session.
+
+The **speed** is the setting you choose; the **stages** are Batbout's own bookkeeping. You don't see stage names mid-task — just a progress line when a concept moves up (*✓ Progress: input validation — next time you write the whole check*) — and the full list in the recap.
 
 ### 5. Hand-overs — your turn
 
@@ -152,9 +163,13 @@ When you reply with your attempt, `takemyhand-review` reads it and checks it for
 
 A trivial slip (typo, missing import) is fixed straight away and doesn't count against you. Wrong work is never called correct. The agent then integrates the final version, removes the marker, verifies it, and carries on.
 
-### 7. Recap — lock it in
+### 7. Debug with me 🦆
 
-When the task is done, `takemyhand-recap` gives you, in your language:
+Say **debug with me** (`صحّح معي`) — or share an error while in guide or drive — and Batbout does what its name promises: *rubber duck debugging*. It reproduces the error, then asks one question at a time — what did you expect, what happened, where did it last work, what changed — until you find the bug yourself. Stuck after two questions, or say **just fix it**, and it shows the cause and the fix. In watch, a shared error is simply fixed, with the cause explained first.
+
+### 8. Recap — lock it in
+
+When a multi-step task is done, `takemyhand-recap` gives you, in your language (after a small task it just offers one in a line):
 
 1. **What we did** — 1–2 lines.
 2. **Key lessons** — 2–4 points tied to this session's real work.
@@ -182,7 +197,7 @@ Everything is plain words, typed in any language. The agent recognises them by m
 
 The task is always yours: run `/takemyhand` with no task and the agent asks what you want to work on instead of picking a lesson for you.
 
-Start in a specific speed or level by saying it up front: `/takemyhand drive: add pagination to the users list`, `/takemyhand detailed: make a PDF report from sales.csv`.
+Start in a specific speed or depth by saying it up front: `/takemyhand drive: add pagination to the users list`, `/takemyhand detailed: make a PDF report from sales.csv`.
 
 ### During a session
 
@@ -191,7 +206,7 @@ Start in a specific speed or level by saying it up front: `/takemyhand drive: ad
 | **watch** | تفرّج · mira · regarde · schau zu · 見てる · 看着 | Switch to watch speed |
 | **guide me** | خذ بيدي · guíame · guide-moi · führ mich · 手伝って · 带我 | Switch to guide speed |
 | **I'll drive** | سوقني · yo conduzco · je conduis · ich fahre · 私が書く · 我来写 | Switch to drive speed |
-| **brief** · **normal** · **detailed** | باختصار · عادي · بالتفصيل | Change the explanation level |
+| **brief** · **normal** · **detailed** | باختصار · عادي · بالتفصيل | Change the depth |
 | **just do it** | سوّها أنت · hazlo tú · fais-le | The agent does this one step itself, then returns to your speed |
 | **why?** | ليش؟ · ¿por qué? · pourquoi ? | A full answer at your level before moving on |
 | *your attempt*, or **done** | خلصت · listo · fini | Your attempt is reviewed (`takemyhand-review`) |
@@ -199,6 +214,8 @@ Start in a specific speed or level by saying it up front: `/takemyhand drive: ad
 | **I don't know** / **hint** | ما أعرف · تلميح · no sé · une piste | The next rung of the hint ladder |
 | **show me** | ورني · muéstrame · montre-moi | The solution, explained step by step (the concept steps back one stage) |
 | **serious** / **jokes on** | بجدية · رجّع المزح · en serio · con humor | Turn Batbout's humor off or on |
+| **commands** | أوامر · comandos · commandes | List these words in your language |
+| **debug with me** | صحّح معي · depuremos juntos | Find a bug by answering Batbout's questions |
 | **speak English** / **تكلم عربي** | — | Switch the session language |
 
 ### End
@@ -263,10 +280,11 @@ curl -fsSL https://raw.githubusercontent.com/Abdullah1x2x/takemyhand/main/instal
 | `--agent a,b` | Install only for these agents |
 | `--all` | Install for every supported agent, detected or not |
 | `--project` | Install into the current project instead of your home folder |
+| `--link` | From a cloned copy: link to it instead of copying, so edits to the skills take effect without reinstalling |
 | `--uninstall` | Remove takemyhand (combine with the options above) |
 | `--list` | Show supported agents, their folders, and which are detected |
 
-On Windows the same options are `-Agent`, `-All`, `-Project`, `-Uninstall`, `-List`. Running the script from a cloned copy of this repo installs from the local files instead of downloading.
+On Windows the same options are `-Agent`, `-All`, `-Project`, `-Link`, `-Uninstall`, `-List`. Running the script from a cloned copy of this repo installs from the local files instead of downloading.
 
 ### Claude apps (claude.ai, desktop, mobile)
 
@@ -295,50 +313,11 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 ---
 
-## بالعربية
-
-**takemyhand** مهارة تجعل الوكيل ينجز مهمتك (برمجة أو مستندات أو بيانات أو تقارير) ويشرح لك كل خطوة أثناءها، ثم يسلّمك العمل تدريجياً: **أنا أعمل ← نعمل معاً ← أنت تعمل**، لكل مفهوم على حدة.
-
-- **تدعم كل اللغات**: تحدّثك بلغتك، وتُبقي المصطلحات التقنية بالإنجليزية مع شرح قصير مرة واحدة، وتبني لك مسرد مصطلحات ثنائي اللغة.
-- **ثلاث سرعات بكلمة واحدة**: تفرّج · خذ بيدي · سوقني.
-- **مراجعة صادقة** بسلّم تلميحات من ثلاث درجات، ولا تمدح كوداً خاطئاً.
-- **بلا إعداد**: لا ملفات تتبّع ولا سكربتات أثناء العمل.
-- **تعمل مع أغلب الوكلاء**: Claude Code وCodex وCursor وGemini CLI وCopilot وغيرها، وتُثبَّت بأمر واحد.
-
-### كيف تعمل
-
-- **بطبوط 🦆**: معلّمك اسمه بطبوط، بطّة صغيرة مرحة ومعلّم ممتاز، يتصرف كبطة حقيقية: كل كلام للبطة يبدأ بـ«كواك!»، وتشبيهات من البركة وفتات الخبز، وزعل مسرحي من الكود المبعثر. أسلوبه طريف افتراضياً: نكتة أو تشبيه مضحك في كل خطوة، على الموقف أو الكود وليس عليك، ولا يأتي على حساب الشرح. يتوقف المزح تلقائياً مع التحذيرات والأخطاء الحقيقية، وتطفئه بكلمة «بجدية» وتعيده بـ«رجّع المزح».
-- **أي مهمة**: برنامج، ملف PDF أو Word، جدول بيانات، تحليل، تقرير، عرض تقديمي، أو كتابة.
-- **يناسب مستواك**: يقدّر بطبوط مستواك في الموضوع (مبتدئ، لديك خبرة، محترف) من عملك الذي تشاركه والمصطلحات التي تستخدمها، ويأخذ بكلامك إذا ذكرت مستواك، ويسألك مرة واحدة فقط إذا لم يكن واضحاً، ويفترض أنك مبتدئ إذا بقي غير واضح، ويعدّل شرحه طوال الجلسة.
-- **يجعلك تفكر**: هدف واضح في البداية، وسؤال «توقّع ماذا سيحدث» كل بضع خطوات (والجواب مخفي حتى لا يتوقف العمل)، وفي «تفرّج» يعرض عليك مرة واحدة أن تجرّب بنفسك.
-- **بلا تكرار**: يشرح كل مفهوم بالكامل مرة واحدة، وبعدها يكتفي بسطر.
-- **صادق في حدود معرفته**: يقول «لست متأكداً» ويتحقق بدل أن يخمّن، ويفرّق بين الحقيقة والعُرف والرأي، وفي الصحة والقانون والمال والأمن يشرح المفاهيم ويوجّهك للمصادر الموثوقة.
-- **معلّم خبير في موضوعك**: يحدد الوكيل موضوع المهمة (تعلّم الآلة، تطوير الويب، تصميم المستندات…) ويعلّمك كخبير في هذا المجال: مصطلحاته، وممارساته المعتمدة، وأخطاء المبتدئين فيه. في «تفرّج» يعرض كيف يعمل الخبير، وفي «خذ بيدي» يدرّبك على قرارات المجال الأساسية، وفي «سوقني» يراجع عملك بمعايير المجال. ويتغيّر الدور إذا تغيّر الموضوع.
-- **السرعات**: تبدأ الجلسة على «تفرّج»: ينفّذ الوكيل كل شيء ويشرح. في «خذ بيدي» ينفّذ جزءاً وتنفّذ أنت الأجزاء المهمة، وفي «سوقني» تنفّذ أنت أغلب العمل والوكيل يخطط ويراجع ويلمّح.
-- **مستويات الشرح**: «باختصار» للخطوات المهمة فقط، و«عادي» (الافتراضي) لكل خطوة مهمة، و«بالتفصيل» لكل جزء وكل قرار والبدائل، ويختار الوكيل لكل خطوة طريقة الشرح الأنسب لموضوعها: مثال بأرقام حقيقية للمعادلة، وجدول بدائل للقرار، وتشبيه للفكرة الجديدة، وشرح سطر سطر للكود الكثيف، وسؤال لاختبار الفهم، وغيرها. المستوى مستقل عن السرعة.
-- **شرح خطوة بخطوة**: بعد كل خطوة يشرح الوكيل: ماذا فعل، ولماذا بهذه الطريقة، وكيف. في البرنامج يشرح كل دالة وفائدتها، وفي ملف PDF يشرح ترتيبه والأداة التي استخدمها وخطوات إنشائه. يظهر الشرح كاقتباس يتبع اتجاه النص، فيأتي من اليمين بالعربية.
-- **خريطة العمل**: عند انتهاء جزء من العمل يعرض الوكيل أجزاءه (الدوال أو الأقسام) مع سطر عن فائدة كل جزء.
-- **التسليم التدريجي**: في «خذ بيدي» و«سوقني» لكل مفهوم ثلاث مراحل: أنا أعمل ← نعمل معاً ← أنت تعمل. ينتقل المفهوم مرحلة للأمام إذا كانت محاولتك صحيحة بتلميح واحد على الأكثر، ويبقى مكانه إذا احتجت تلميحاً مباشراً، ويرجع مرحلة إذا احتجت الحل كاملاً. الخطأ الإملائي البسيط لا يُحسب عليك.
-- **التسليم**: يجهّز الوكيل كل ما حول الجزء المهم، ويترك علامة مثل `TODO(أنت)` في الكود أو في المستند، أو يسألك القرار في المحادثة، ثم يكتب لك السياق والمطلوب وتلميحاً، وينتظر محاولتك.
-- **المراجعة**: يقول ما هو صحيح وكل مشكلة حقيقية، ثم يصعد سلّم التلميحات درجة درجة: سؤال موجّه، ثم تلميح مباشر، ثم الحل مشروحاً خطوة خطوة.
-- **الملخص**: في النهاية تحصل على ما أنجزناه، والدروس، ومرحلة كل مفهوم، ومسرد المصطلحات، وتمرين تالٍ، مع شرح عكسي اختياري.
-
-### الأوامر داخل الوكيل
-
-| قل | ماذا يحدث |
-|---|---|
-| `/takemyhand <المهمة>` | بدء جلسة في Claude Code (أو `/takemyhand:takemyhand` إذا ثُبّتت كإضافة). في الوكلاء الآخرين: «استخدم takemyhand لـ…». بدون مهمة يسألك الوكيل ماذا تريد أن تعمل |
-| تفرّج · خذ بيدي · سوقني | تغيير السرعة |
-| بجدية · رجّع المزح | إيقاف المزح أو إعادته |
-| باختصار · عادي · بالتفصيل | تغيير مستوى الشرح |
-| سوّها أنت | ينفّذ الوكيل هذه الخطوة بنفسه ثم يعود لسرعتك |
-| ليش؟ | شرح كامل قبل المتابعة |
-| خلصت · صح كذا؟ · أو الصق كودك | مراجعة محاولتك |
-| ما أعرف · تلميح | الدرجة التالية من سلّم التلميحات |
-| ورني | الحل مشروحاً، ويرجع المفهوم مرحلة |
-| ملخص · المصطلحات · اختبرني | الملخص الكامل، أو المسرد فقط، أو 3–5 أسئلة من كود الجلسة |
-
 ---
+
+## Testing the skill
+
+[`evals/cases.md`](evals/cases.md) lists prompts with the behaviour each must show and must not show — ambiguity, the session card, right-to-left output, *serious*, hand-overs, debugging. Run them in a fresh session after changing a skill; install with `./install.sh --link` so the session uses your working copy.
 
 ## License
 

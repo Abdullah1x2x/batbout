@@ -5,7 +5,7 @@
 #
 # With options (download first, then run):
 #   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/Abdullah1x2x/takemyhand/main/install.ps1))) -Agent claude-code,cursor
-#   ... -All | -Project | -Uninstall | -List
+#   ... -All | -Project | -Uninstall | -List | -Link (from a local clone: link instead of copy)
 
 [CmdletBinding()]
 param(
@@ -13,6 +13,7 @@ param(
   [switch]$All,
   [switch]$Project,
   [switch]$Uninstall,
+  [switch]$Link,
   [switch]$List
 )
 
@@ -46,6 +47,13 @@ $Agents = @(
 
 function Test-Detected($a) { (-not $a.Detect) -or (Test-Path -LiteralPath $a.Detect -PathType Container) }
 
+# A junction must be removed as a link: Remove-Item -Recurse on it can delete the linked repo's files
+function Remove-Skill($p) {
+  if (-not (Test-Path -LiteralPath $p)) { return }
+  if ((Get-Item -LiteralPath $p -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) { [IO.Directory]::Delete($p) }
+  else { Remove-Item -LiteralPath $p -Recurse -Force }
+}
+
 if ($List) {
   $Agents | ForEach-Object {
     [pscustomobject]@{ Agent = $_.Id; Detected = $(if (Test-Detected $_) { 'yes' } else { '-' }); GlobalPath = $_.Global }
@@ -72,7 +80,7 @@ if ($Targets.Count -eq 0) { throw 'No matching agents found. Use -List to see th
 
 if ($Uninstall) {
   foreach ($dir in $Targets.Keys) {
-    foreach ($s in $Skills) { $p = Join-Path $dir $s; if (Test-Path -LiteralPath $p) { Remove-Item -LiteralPath $p -Recurse -Force } }
+    foreach ($s in $Skills) { Remove-Skill (Join-Path $dir $s) }
     Write-Host "✓ removed from $dir  ($($Targets[$dir]))"
   }
   return
@@ -83,6 +91,7 @@ $Src = $null
 if ($PSScriptRoot -and (Test-Path (Join-Path $PSScriptRoot 'skills\takemyhand\SKILL.md'))) {
   $Src = Join-Path $PSScriptRoot 'skills'
 } else {
+  if ($Link) { throw '-Link needs a local clone: run .\install.ps1 -Link from the repo.' }
   $Tmp = Join-Path ([IO.Path]::GetTempPath()) ("takemyhand-" + [guid]::NewGuid())
   New-Item -ItemType Directory -Path $Tmp | Out-Null
   $Zip = Join-Path $Tmp 'repo.zip'
@@ -100,8 +109,9 @@ try {
     New-Item -ItemType Directory -Path $dir -Force | Out-Null
     foreach ($s in $Skills) {
       $dest = Join-Path $dir $s
-      if (Test-Path -LiteralPath $dest) { Remove-Item -LiteralPath $dest -Recurse -Force }
-      Copy-Item -LiteralPath (Join-Path $Src $s) -Destination $dest -Recurse
+      Remove-Skill $dest
+      if ($Link) { New-Item -ItemType Junction -Path $dest -Target (Join-Path $Src $s) | Out-Null }
+      else { Copy-Item -LiteralPath (Join-Path $Src $s) -Destination $dest -Recurse }
     }
     Write-Host "✓ $dir  ($($Targets[$dir]))"
   }

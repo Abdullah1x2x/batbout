@@ -11,6 +11,7 @@
 #   --agent a,b,...   install only for these agents (see --list)
 #   --all             install for every supported agent, detected or not
 #   --project         install into the current project instead of your home folder
+#   --link            link to this checkout instead of copying (for developing the skills)
 #   --uninstall       remove takemyhand skills from the selected agents
 #   --list            show supported agents and whether they were detected
 #   -h, --help        show this help
@@ -43,7 +44,7 @@ AGENTS=(
   "universal|$HOME/.agents/skills|.agents/skills|"
 )
 
-MODE=detected; SELECTED=""; PROJECT=0; UNINSTALL=0; LIST=0
+MODE=detected; SELECTED=""; PROJECT=0; UNINSTALL=0; LIST=0; LINK=0
 
 usage() {
   cat <<'EOF'
@@ -53,6 +54,7 @@ takemyhand installer
   install.sh --agent a,b,...    install only for these agents (see --list)
   install.sh --all              install for every supported agent
   install.sh --project          install into the current project instead of your home folder
+  install.sh --link             link to this checkout instead of copying (run from a clone)
   install.sh --uninstall        remove takemyhand from the selected agents
   install.sh --list             show supported agents and whether they were detected
 EOF
@@ -64,6 +66,7 @@ while [ $# -gt 0 ]; do
     --agent=*)  MODE=selected; SELECTED="${1#*=}"; shift ;;
     --all)      MODE=all; shift ;;
     --project)  PROJECT=1; shift ;;
+    --link)     LINK=1; shift ;;
     --uninstall) UNINSTALL=1; shift ;;
     --list)     LIST=1; shift ;;
     -h|--help)  usage; exit 0 ;;
@@ -133,6 +136,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || true
 if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/skills/takemyhand/SKILL.md" ]; then
   SRC="$SCRIPT_DIR/skills"
 else
+  [ "$LINK" = 0 ] || { echo "--link needs a local clone: run ./install.sh --link from the repo." >&2; exit 1; }
   command -v curl >/dev/null || { echo "curl is required." >&2; exit 1; }
   TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
   echo "Downloading $REPO@$REF ..."
@@ -145,7 +149,7 @@ for i in "${!TARGETS[@]}"; do
   mkdir -p "${TARGETS[$i]}"
   for s in "${SKILLS[@]}"; do
     rm -rf "${TARGETS[$i]:?}/$s"
-    cp -R "$SRC/$s" "${TARGETS[$i]}/$s"
+    if [ "$LINK" = 1 ]; then ln -s "$SRC/$s" "${TARGETS[$i]}/$s"; else cp -R "$SRC/$s" "${TARGETS[$i]}/$s"; fi
   done
   echo "✓ ${TARGETS[$i]}  (${LABELS[$i]})"
 done

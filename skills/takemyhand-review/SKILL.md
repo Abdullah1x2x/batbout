@@ -30,7 +30,7 @@ When the attempt has a problem, climb one rung at a time:
 - Never jump past what they need: the goal is that *they* find it.
 
 ## 4. Decide the stage
-Report back to the session (and to the user, in one line) using the gradual-release rules in **takemyhand**:
+Decide it using the gradual-release rules in **takemyhand**; tell the user only an advance, as one progress line in plain words — stage names stay internal until the recap:
 - Correct with **0–1 hint** → the concept **advances** one stage.
 - Needed **rung 2** → **holds** at its stage.
 - Needed **rung 3** → **steps back** one stage (never below stage 1; trivial-slip fixes don't count).
