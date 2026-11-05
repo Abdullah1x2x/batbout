@@ -10,6 +10,13 @@
       "description": "Mentor mode in any language: the agent does your task while teaching, then gradually hands the work over (I do → we do → you do).",
       "version": "1.0.0",
       "license": "Apache-2.0"
+    },
+    {
+      "name": "takemyhand-bar",
+      "source": "./plugins/takemyhand-bar",
+      "description": "Claude Code control panel for takemyhand: speed, depth, humor and quick tools as buttons above the prompt.",
+      "version": "0.1.1",
+      "license": "Apache-2.0"
     }
   ]
 }
