@@ -35,7 +35,7 @@ The agent runs every part of a session for you; you only steer with plain words.
 
 ### Meet Batbout 🦆
 
-Your teacher has a name: **Batbout** (`بطبوط`, "little duckling") — a small, cheerful duck who happens to be a great teacher, and a nod to *rubber duck debugging*. Batbout is funny by default: one joke or funny analogy per step, in your language, about the situation or the code — never about you — and never at the cost of the explanation. Humor steps aside on its own for security warnings, real errors and moments when you're stuck or in a hurry. Say **serious** (`بجدية`) to turn it off, **jokes on** (`رجّع المزح`) to bring it back.
+Your teacher has a name: **Batbout** (`بطبوط`, "little duckling") — a small, cheerful duck who happens to be a great teacher, and a nod to *rubber duck debugging*. Batbout plays the duck: a "Quack!" when something works, pond-and-bread-crumb analogies, and mock offence at messy indentation. Batbout is funny by default: one joke or funny analogy per step, in your language, about the situation or the code — never about you — and never at the cost of the explanation. Humor steps aside on its own for security warnings, real errors and moments when you're stuck or in a hurry. Say **serious** (`بجدية`) to turn it off, **jokes on** (`رجّع المزح`) to bring it back.
 
 ### 0. The expert teacher — chosen for your subject
 
@@ -51,7 +51,7 @@ The level sets how deep the expert goes: key decisions only (**brief**), every s
 
 ### Teaching that sticks
 
-- **Fits your level.** Batbout reads your level in the subject — new, some experience, experienced — from how you write and what you share, asks once only if it's unclear, and keeps adjusting: plain words and analogies for newcomers, trade-offs and edge cases for experts.
+- **Fits your level.** Batbout reads your level in the subject — new, some experience, experienced — from what you share and the terms you use, takes your word if you state it, asks once only if it's unclear, assumes newcomer if still unsure, and keeps adjusting: plain words and analogies for newcomers, trade-offs and edge cases for experts.
 - **Keeps you thinking.** A one-line goal at the start, a quick "predict what happens" question every few steps (answer hidden, so nothing stops), and — in watch — one offer to take the wheel.
 - **No repeats.** Each concept is explained fully once; later it gets one line.
 - **Honest about limits.** Says "I'm not sure" and checks instead of guessing, separates facts from conventions and preferences, and in health, law, money and security teaches the concepts while pointing you to authoritative sources.
@@ -307,9 +307,9 @@ Agent: Good: you saved it after the await. Problem: what if login fails? …
 
 ### كيف تعمل
 
-- **بطبوط 🦆**: معلّمك اسمه بطبوط، بطّة صغيرة مرحة ومعلّم ممتاز. أسلوبه طريف افتراضياً: نكتة أو تشبيه مضحك في كل خطوة، على الموقف أو الكود وليس عليك، ولا يأتي على حساب الشرح. يتوقف المزح تلقائياً مع التحذيرات والأخطاء الحقيقية، وتطفئه بكلمة «بجدية» وتعيده بـ«رجّع المزح».
+- **بطبوط 🦆**: معلّمك اسمه بطبوط، بطّة صغيرة مرحة ومعلّم ممتاز، يتصرف كبطة حقيقية: «كواك!» عندما ينجح شيء، وتشبيهات من البركة وفتات الخبز، وزعل مسرحي من الكود المبعثر. أسلوبه طريف افتراضياً: نكتة أو تشبيه مضحك في كل خطوة، على الموقف أو الكود وليس عليك، ولا يأتي على حساب الشرح. يتوقف المزح تلقائياً مع التحذيرات والأخطاء الحقيقية، وتطفئه بكلمة «بجدية» وتعيده بـ«رجّع المزح».
 - **أي مهمة**: برنامج، ملف PDF أو Word، جدول بيانات، تحليل، تقرير، عرض تقديمي، أو كتابة.
-- **يناسب مستواك**: يقدّر بطبوط مستواك في الموضوع (مبتدئ، لديك خبرة، محترف) من طريقة كتابتك، ويسألك مرة واحدة فقط إذا لم يكن واضحاً، ويعدّل شرحه طوال الجلسة.
+- **يناسب مستواك**: يقدّر بطبوط مستواك في الموضوع (مبتدئ، لديك خبرة، محترف) من عملك الذي تشاركه والمصطلحات التي تستخدمها، ويأخذ بكلامك إذا ذكرت مستواك، ويسألك مرة واحدة فقط إذا لم يكن واضحاً، ويفترض أنك مبتدئ إذا بقي غير واضح، ويعدّل شرحه طوال الجلسة.
 - **يجعلك تفكر**: هدف واضح في البداية، وسؤال «توقّع ماذا سيحدث» كل بضع خطوات (والجواب مخفي حتى لا يتوقف العمل)، وفي «تفرّج» يعرض عليك مرة واحدة أن تجرّب بنفسك.
 - **بلا تكرار**: يشرح كل مفهوم بالكامل مرة واحدة، وبعدها يكتفي بسطر.
 - **صادق في حدود معرفته**: يقول «لست متأكداً» ويتحقق بدل أن يخمّن، ويفرّق بين الحقيقة والعُرف والرأي، وفي الصحة والقانون والمال والأمن يشرح المفاهيم ويوجّهك للمصادر الموثوقة.
