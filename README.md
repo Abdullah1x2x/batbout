@@ -212,6 +212,17 @@ Start in a specific speed or depth by saying it up front: `/batbout drive: add p
 
 ### During a session
 
+Installed as a Claude Code plugin (`claude plugin install batbout@batbout`), each setting also has its own slash command:
+
+| Command | Sets |
+|---|---|
+| `/batbout:watch` · `/batbout:guide` · `/batbout:drive` | The speed |
+| `/batbout:brief` · `/batbout:normal` · `/batbout:detailed` | The depth |
+| `/batbout:serious` · `/batbout:jokes` | Humor off or on |
+
+Or just say the word, in any language:
+
+
 | Say | Examples in other languages | What happens |
 |---|---|---|
 | **watch** | تفرّج · mira · regarde · schau zu · 見てる · 看着 | Switch to watch speed |

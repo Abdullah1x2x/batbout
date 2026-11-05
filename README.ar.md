@@ -36,6 +36,9 @@
 
 | قل | ماذا يحدث |
 |---|---|
+| `/batbout:watch` · `/batbout:guide` · `/batbout:drive` | تغيير السرعة بأمر، إذا ثُبّتت كإضافة في Claude Code |
+| `/batbout:brief` · `/batbout:normal` · `/batbout:detailed` | تغيير عمق الشرح بأمر |
+| `/batbout:serious` · `/batbout:jokes` | إيقاف المزح أو إعادته بأمر |
 | `/batbout <المهمة>` | بدء جلسة في Claude Code (أو `/batbout:batbout` إذا ثُبّتت كإضافة). في الوكلاء الآخرين: «استخدم batbout لـ…». بدون مهمة يسألك الوكيل ماذا تريد أن تعمل |
 | تفرّج · خذ بيدي · سوقني | تغيير السرعة |
 | بجدية · رجّع المزح | إيقاف المزح أو إعادته |
